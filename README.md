@@ -1,6 +1,6 @@
-# Punctuals
+# Games Bookstore
 
-Punctuals is a text adventure generator with a very generic and adaptable interactive UI, driven by an LLM.
+Games Bookstore (pronounced "[James Baxter](https://adventuretime.fandom.com/wiki/James_Baxter)") is a text adventure generator with a very generic and adaptable interactive UI, driven by an LLM.
 
 ## The gist, and the UI
 
@@ -16,7 +16,7 @@ Adventure:
 
 Stories:
 
-- new stories are saved to disk automatically
+- newly played stories are saved to disk automatically as they progress
   - they are accompanied by their JSON inventory, journal, damage, map, and contacts data (this list is not exhaustive)
 - you can select which saved story you want to continue from a menu screen
 - to start a new story, you can start from a list of interesting and varied adventure prompts, each of which can be clicked to start that adventure
@@ -69,6 +69,34 @@ Appearance:
 
 - your character's personal appearance (and changes to it) should also be stored and surfaced in the UI somehow in a similar fashion to all of the above
 
-## Miscellaneous
+## Setup
 
-Built with Electron, TypeScript, and React. For inference, it will interface with your choice of OpenAI API, Anthropic API, or Ollama (for local models).
+For inference, it will interface with your choice of OpenAI API, Anthropic API, or Ollama (for local models).
+
+For OpenAI and Anthropic, it will take an API key (which it will remember securely on your local machine and never exfiltrate that data) and it will take the model to use.
+
+For Ollama, it will take a server address (usually `localhost` or `127.0.0.1` or an IP address on your LAN), a port (default is `11434`), and the model to use.
+
+Other options will be made available in the future.
+
+## Architecture
+
+### "Stack"
+
+Built with Electron, TypeScript (strict), React, Tailwind.
+
+### Dev tools
+
+- Vite
+- ESLint
+- Prettier
+- Husky
+-
+
+### Electron app structure
+
+
+
+### Wrapping and prompting the LLM
+
+### UI components
