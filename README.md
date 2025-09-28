@@ -2,6 +2,8 @@
 
 Games Bookstore (pronounced "[James Baxter](https://adventuretime.fandom.com/wiki/James_Baxter)") is a text adventure generator with a very generic and adaptable interactive UI, driven by an LLM.
 
+**NOTE:** This rambling README is not well-organized. Sorry for the public scratchpad.
+
 ## The gist, and the UI
 
 Adventure:
@@ -83,20 +85,31 @@ Other options will be made available in the future.
 
 ### "Stack"
 
-Built with Electron, TypeScript (strict), React, Tailwind.
+- Electron
+- TypeScript (strict)
+- React
+- Tailwind
 
 ### Dev tools
 
 - Vite
+- Vitest
 - ESLint
 - Prettier
 - Husky
--
 
-### Electron app structure
+### The native parts
 
+...
 
+### The web parts (the interface)
+
+...
 
 ### Wrapping and prompting the LLM
 
+...
+
 ### UI components
+
+...
