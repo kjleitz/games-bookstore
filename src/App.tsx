@@ -1,38 +1,41 @@
-import "./App.css";
+import { ActionComposer } from "./components/ActionComposer";
+import { AdventureList } from "./components/AdventureList";
+import { AppFooter } from "./components/AppFooter";
+import { AppHeader } from "./components/AppHeader";
+import { AppearancePanel } from "./components/AppearancePanel";
+import { ContactsPanel } from "./components/ContactsPanel";
+import { DamagePanel } from "./components/DamagePanel";
+import { InventoryPanel } from "./components/InventoryPanel";
+import { JournalPanel } from "./components/JournalPanel";
+import { MapPanel } from "./components/MapPanel";
+import { NewAdventurePanel } from "./components/NewAdventurePanel";
+import { StoryPane } from "./components/StoryPane";
 
-import { useState } from "react";
-
-import viteLogo from "/electron-vite.animate.svg";
-
-import reactLogo from "./assets/react.svg";
-
-function App() {
-  const [count, setCount] = useState(0);
-
+export function App(): JSX.Element {
   return (
-    <>
-      <div>
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          countd is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="flex min-h-screen flex-col gap-4 bg-canvas p-chrome text-textPrimary">
+      <AppHeader />
+      <main className="grid flex-1 grid-cols-[280px_minmax(0,1fr)_320px] gap-4">
+        <div className="flex flex-col gap-4 overflow-hidden">
+          <NewAdventurePanel />
+          <AdventureList />
+        </div>
+        <div className="flex flex-col overflow-hidden">
+          <StoryPane />
+          <ActionComposer />
+        </div>
+        <div className="grid grid-rows-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] gap-4 overflow-hidden">
+          <DamagePanel />
+          <InventoryPanel />
+          <JournalPanel />
+        </div>
+      </main>
+      <section className="grid gap-4 md:grid-cols-3">
+        <MapPanel />
+        <ContactsPanel />
+        <AppearancePanel />
+      </section>
+      <AppFooter />
+    </div>
   );
 }
-
-export default App;

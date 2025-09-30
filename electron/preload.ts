@@ -1,24 +1,32 @@
-import { ipcRenderer, contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from "electron";
 
-// --------- Expose some API to the Renderer process ---------
-contextBridge.exposeInMainWorld('ipcRenderer', {
+contextBridge.exposeInMainWorld("ipcRenderer", {
   on(...args: Parameters<typeof ipcRenderer.on>) {
-    const [channel, listener] = args
-    return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))
+    const [channel, listener] = args;
+    return ipcRenderer.on(channel, (event, ...parameters) => listener(event, ...parameters));
   },
   off(...args: Parameters<typeof ipcRenderer.off>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.off(channel, ...omit)
+    const [channel, ...rest] = args;
+    return ipcRenderer.off(channel, ...rest);
   },
   send(...args: Parameters<typeof ipcRenderer.send>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.send(channel, ...omit)
+    const [channel, ...rest] = args;
+    return ipcRenderer.send(channel, ...rest);
   },
   invoke(...args: Parameters<typeof ipcRenderer.invoke>) {
-    const [channel, ...omit] = args
-    return ipcRenderer.invoke(channel, ...omit)
+    const [channel, ...rest] = args;
+    return ipcRenderer.invoke(channel, ...rest);
   },
+});
 
-  // You can expose other APTs you need here.
-  // ...
-})
+contextBridge.exposeInMainWorld("gameStore", {
+  listAdventures: () => ipcRenderer.invoke("adventure:list"),
+  loadAdventure: (adventureId: string) => ipcRenderer.invoke("adventure:load", adventureId),
+  saveAdventure: (adventure: unknown) => ipcRenderer.invoke("adventure:save", adventure),
+  deleteAdventure: (adventureId: string) => ipcRenderer.invoke("adventure:delete", adventureId),
+});
+
+contextBridge.exposeInMainWorld("settingsStore", {
+  loadSettings: () => ipcRenderer.invoke("settings:load"),
+  saveSettings: (settings: unknown) => ipcRenderer.invoke("settings:save", settings),
+});

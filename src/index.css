@@ -1,68 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-body: "Inter";
+  --font-display: "Michroma";
+  --font-monospace: "JetBrains Mono";
+
+  --color-canvas: #05070a;
+  --color-surface: #0c121a;
+  --color-surface-muted: rgba(12, 18, 26, 0.72);
+  --color-accent: #58f4e8;
+  --color-accent-muted: rgba(88, 244, 232, 0.32);
+  --color-text-primary: #eaf5ff;
+  --color-text-secondary: rgba(234, 245, 255, 0.66);
+  --color-border: rgba(88, 244, 232, 0.28);
+  --color-danger: #ff6a7b;
+  --color-success: #7bffad;
+  --color-warning: #ffd166;
+
+  --radius-chrome: 32px;
+  --radius-panel: 20px;
+  --spacing-chrome: 24px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+[data-theme="light"] {
+  color-scheme: light;
+  --color-canvas: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-surface-muted: rgba(9, 31, 48, 0.08);
+  --color-accent: #006dff;
+  --color-accent-muted: rgba(0, 109, 255, 0.12);
+  --color-text-primary: #101521;
+  --color-text-secondary: rgba(16, 21, 33, 0.72);
+  --color-border: rgba(16, 21, 33, 0.12);
+  --color-danger: #d7263d;
+  --color-success: #0fbf77;
+  --color-warning: #f4a259;
 }
-a:hover {
-  color: #535bf2;
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: var(--font-body), sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a {
+  color: inherit;
 }
