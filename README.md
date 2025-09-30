@@ -4,7 +4,7 @@ Games Bookstore (pronounced "[James Baxter](https://adventuretime.fandom.com/wik
 
 **NOTE:** This rambling README is not well-organized. Sorry for the public scratchpad.
 
-## The gist, and the UI
+## The gist of the thing and the UI/glossary braindump
 
 Adventure:
 
@@ -73,7 +73,7 @@ Appearance:
 
 ## Setup
 
-For inference, it will interface with your choice of OpenAI API, Anthropic API, or Ollama (for local models).
+For inference/generation, it will interface with your choice of OpenAI API, Anthropic API, or Ollama (for local models).
 
 For OpenAI and Anthropic, it will take an API key (which it will remember securely on your local machine and never exfiltrate that data) and it will take the model to use.
 
@@ -89,6 +89,7 @@ Other options will be made available in the future.
 - TypeScript (strict)
 - React
 - Tailwind
+- React Native in the near future
 
 ### Dev tools
 
@@ -98,18 +99,77 @@ Other options will be made available in the future.
 - Prettier
 - Husky
 
-### The native parts
-
-...
-
-### The web parts (the interface)
-
-...
-
 ### Wrapping and prompting the LLM
 
-...
+**NOTE:** This will hit an API (probably any OpenAI-compatible API) so that you can hit Ollama served locally or OpenAI for one of their models or Anthropic for one of theirs, for running inference and text generation.
 
-### UI components
+#### Mainline story
 
-...
+For any given game you can play through Games Bookstore, the game itself will be played in the main text area (the "story"). When the user inputs text (their "move"), it will use the configured API to get a continuation of the story.
+
+In order to do that, Games Bookstore will build a context string including:
+
+- all the journal notes (terse summaries, facts, and memories important to the plot and continuity of the story)
+- the inventory, serialized into only the most basic information
+- other relevant structured information gathered thus far which also might be important
+- the current transcript (which might be manipulated in various ways as its length begins to exceed the model's optimal context window size)
+- the "move" input from the user
+
+...and then it will generate a continuation of the story based on that context string, which will be printed to the main text area (the "story"), and the cycle continues.
+
+#### Items, journal, contacts, and other structured information
+
+As you progress through the game, Games Bookstore will keep track of:
+
+- any items you obtain in the story (goes in the inventory)
+- terse notes of details important to the plot or continuity (goes in the journal)
+- people and contact methods in the contacts (goes in contacts)
+- places and points of interest (goes in the map)
+- damage, health, conditions, status, etc.
+
+In order to do that, it will build another context string including pretty much everything in the mainline story one, except at the end it will ALSO include:
+
+- the most recent output, specially indicated in the thread by highlighting it with a special tag or comments or something
+- the "types" (JSON types) for each of the things listed above
+- a prompt to generate JSON for any of the things listed above that it can detect from that most recent output, so that we can store those things in the appropriate collections/data stores
+
+...and then it will generate the JSON describing the items and contacts and notes and places and whatever else that it picked up from the text. Then we will use that JSON to add to our collections/data stores after validating them.
+
+For broken returned JSON, the request should be retried. It should be emphasized in the prompt that this JSON has to be perfectly formatted and it is for production code so there can be no mistakes.
+
+It **remains an open question** whether or not this should be done...
+
+**(A)** In the output of the main story as new responses are written
+
+- this would make it a single generated response that includes the story text as well as the JSON generated beneath it
+- we would automatically parse the ending JSON and put it into the various collections/data stores
+- I'm worried the model will be too distracted doing all of those things rather than focusing on one thing at a time
+
+**(B)** As a separate LLM usage where we run the model on the most recently-generated text from itself, and give us a single structured JSON object representing all the stuff it picked up from the text
+
+- I like this one because it keeps the story generation and the auxiliary data generation separate and singularly-focused
+- more expensive than (A) because you have to do multiple generations with different context windows
+
+**(C)** With a different LLM usage for every data type, where we run the model several times on the most recently-generated text from itself, and each time we have it give us a different structured JSON object representing just the one thing we asked it to look for in the text
+
+- This seems like it would be the highest fidelity
+- probably VERY expensive, probably prohibitively expensive
+- hard to scale as we add more features
+
+**Overall** I think B is probably the way to go, but we should build it with support in mind for doing it all three ways, depending on user preferences and settings.
+
+### Visual/UI
+
+Main text area ("story" text) where you type is in the center. Panels surround it (the "chrome"). Would be great if these were themable.
+
+Collapsible panels show your contacts, map, journal, inventory, etc. Most are to either side of the story text, but some may wrap above and below. On mobile, in the future, these will have to be rethought; they may have to be one-panel-at-a-time or have a traversable menu or something.
+
+It's styled like a futuristic terminal, with a nice soft dark theme, clean lines, monospace text, a nostalgic feel.
+
+The panels wrap the entire border of the screen. They are different shapes an sizes, but they go all the way around. In the center, framed by all of them, is the story text. Below that is the input area, and below that is more chrome (but narrower than the stuff on the sides and top; think of it almost like a task bar).
+
+### Component architecture
+
+React, TypeScript, use functional components, keep things pure/stateless unless necessary. Use context, not redux. Components should be small and single-purpose.
+
+Tailwind for styles. Support themes out of the box; colors, text size/font, padding, and border radius should all be dynamic and come from theme values. Make a dark theme (default) and a light theme to start.
