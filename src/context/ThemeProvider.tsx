@@ -1,7 +1,7 @@
 import { type JSX, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 import type { ThemeName } from "../settings/types/ThemeName";
-import { ThemeContext, type ThemeContextValue } from "./themeContext";
+import { ThemeContext, type ThemeContextValue } from "./ThemeContext";
 
 const THEME_STORAGE_KEY = "games-bookstore-theme";
 
