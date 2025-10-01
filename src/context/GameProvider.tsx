@@ -1,7 +1,7 @@
+import type { JSX, ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { ReactNode } from "react";
 
-import type { GameService } from "../services/gameService";
+import type { GameService } from "../services/GameService";
 import { GameContext, type GameContextValue } from "./gameContext";
 
 export interface GameProviderProps {

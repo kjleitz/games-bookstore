@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { type JSX, useMemo } from "react";
 
 import { useGameContext } from "../context/useGameContext";
 import { PanelCard } from "./PanelCard";
@@ -28,7 +28,10 @@ export function DamagePanel(): JSX.Element {
               </span>
             </div>
             <div className="mt-2 h-2 w-full rounded-full bg-surfaceMuted">
-              <div className="h-full rounded-full bg-accent" style={{ width: `${healthPercent}%` }} />
+              <div
+                className="h-full rounded-full bg-accent"
+                style={{ width: `${healthPercent}%` }}
+              />
             </div>
           </div>
           <div>
@@ -38,10 +41,15 @@ export function DamagePanel(): JSX.Element {
                 <li className="text-textSecondary">None</li>
               ) : (
                 damageState.conditions.map((condition) => (
-                  <li key={condition.id} className="rounded-panel border border-border/20 bg-surface/40 p-2">
+                  <li
+                    key={condition.id}
+                    className="rounded-panel border border-border/20 bg-surface/40 p-2"
+                  >
                     <div className="flex items-center justify-between text-sm text-textPrimary">
                       <span>{condition.name}</span>
-                      <span className="text-xs uppercase tracking-[0.2em] text-warning">{condition.severity}</span>
+                      <span className="text-xs uppercase tracking-[0.2em] text-warning">
+                        {condition.severity}
+                      </span>
                     </div>
                     <p className="mt-1 text-xs text-textSecondary">{condition.description}</p>
                   </li>

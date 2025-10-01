@@ -1,11 +1,12 @@
-import type { StoryPromptOption } from "../types/game";
-import type { PromptRepository } from "../types/services";
+import type { StoryPromptOption } from "../domain/types/StoryPromptOption";
+import type { PromptRepository } from "./types/PromptRepository";
 
 const PROMPTS: StoryPromptOption[] = [
   {
     id: "orbital-library",
     title: "Orbital Library of Forgotten Games",
-    synopsis: "You are the new steward of an orbital archive where stories manifest as living simulations.",
+    synopsis:
+      "You are the new steward of an orbital archive where stories manifest as living simulations.",
     seedPrompt:
       "You awaken inside the Orbital Library of Forgotten Games. The AI archivist requests your help cataloguing interactive narratives on the brink of collapse.",
   },

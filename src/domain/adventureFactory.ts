@@ -1,4 +1,7 @@
-import type { AdventureMetadata, AdventureState, DamageState, StructuredState } from "../types/game";
+import type { AdventureMetadata } from "./types/AdventureMetadata";
+import type { AdventureState } from "./types/AdventureState";
+import type { DamageState } from "./types/DamageState";
+import type { StructuredState } from "./types/StructuredState";
 
 export const DEFAULT_DAMAGE_STATE: DamageState = {
   currentHealth: 10,
@@ -17,7 +20,11 @@ export function createStructuredState(): StructuredState {
   };
 }
 
-export function createAdventureMetadata(title: string, seedPrompt: string, providerModel: string): AdventureMetadata {
+export function createAdventureMetadata(
+  title: string,
+  seedPrompt: string,
+  providerModel: string,
+): AdventureMetadata {
   const timestamp = new Date().toISOString();
   return {
     id: crypto.randomUUID(),
@@ -29,7 +36,11 @@ export function createAdventureMetadata(title: string, seedPrompt: string, provi
   };
 }
 
-export function createAdventureState(title: string, seedPrompt: string, providerModel: string): AdventureState {
+export function createAdventureState(
+  title: string,
+  seedPrompt: string,
+  providerModel: string,
+): AdventureState {
   return {
     metadata: createAdventureMetadata(title, seedPrompt, providerModel),
     turns: [],

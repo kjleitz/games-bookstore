@@ -1,6 +1,7 @@
 import { createStructuredState } from "../domain/adventureFactory";
-import type { AdventureState, AdventureSummary } from "../types/game";
-import type { AdventureRepository } from "../types/services";
+import type { AdventureState } from "../domain/types/AdventureState";
+import type { AdventureSummary } from "../domain/types/AdventureSummary";
+import type { AdventureRepository } from "./types/AdventureRepository";
 
 export class InMemoryAdventureRepository implements AdventureRepository {
   private readonly adventures = new Map<string, AdventureState>();
@@ -69,7 +70,8 @@ export class InMemoryAdventureRepository implements AdventureRepository {
           {
             id: crypto.randomUUID(),
             name: "Chrono Compass",
-            description: "A brass instrument that hums softly when pointed toward narrative anomalies.",
+            description:
+              "A brass instrument that hums softly when pointed toward narrative anomalies.",
             quantity: 1,
             isConsumable: false,
           },

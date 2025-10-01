@@ -1,12 +1,11 @@
 import { createAdventureState } from "../domain/adventureFactory";
-import type { AdventureState, AdventureSummary } from "../types/game";
-import type {
-  AdventureRepository,
-  Clock,
-  ExtractStructuredStateResult,
-  GenerateTurnResult,
-  LlmStoryEngine,
-} from "../types/services";
+import type { AdventureState } from "../domain/types/AdventureState";
+import type { AdventureSummary } from "../domain/types/AdventureSummary";
+import type { AdventureRepository } from "./types/AdventureRepository";
+import type { Clock } from "./types/Clock";
+import type { ExtractStructuredStateResult } from "./types/ExtractStructuredStateResult";
+import type { GenerateTurnResult } from "./types/GenerateTurnResult";
+import type { LlmStoryEngine } from "./types/LlmStoryEngine";
 
 export interface StartAdventureInput {
   title: string;
@@ -39,15 +38,19 @@ export class GameService {
   }
 
   async recordTurn(adventure: AdventureState, playerAction: string): Promise<AdventureState> {
-    const turnResult: GenerateTurnResult = await this.storyEngine.generateTurn({ adventure, playerAction });
+    const turnResult: GenerateTurnResult = await this.storyEngine.generateTurn({
+      adventure,
+      playerAction,
+    });
     const updatedAdventure: AdventureState = structuredClone(adventure);
     updatedAdventure.turns.push(turnResult.turn);
     updatedAdventure.metadata.updatedAt = this.clock.now();
 
-    const extractionResult: ExtractStructuredStateResult = await this.storyEngine.extractStructuredState({
-      adventure: updatedAdventure,
-      mostRecentTurn: turnResult.turn,
-    });
+    const extractionResult: ExtractStructuredStateResult =
+      await this.storyEngine.extractStructuredState({
+        adventure: updatedAdventure,
+        mostRecentTurn: turnResult.turn,
+      });
 
     const finalAdventure = extractionResult.adventure;
     finalAdventure.metadata.updatedAt = this.clock.now();

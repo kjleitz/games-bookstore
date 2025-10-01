@@ -7,20 +7,43 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Build artifacts
 node_modules
 dist
 dist-electron
 dist-ssr
-*.local
 .npm-cache
+/build/
+/.vite
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Env files
+.env
+.env.*
+*.local
+
+# Mac system files
+.DS_Store
+Thumbs.db
+
+# Tailwind
+/tailwind-output.css
+
+# Test coverage
+coverage/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

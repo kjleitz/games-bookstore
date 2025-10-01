@@ -1,8 +1,10 @@
+import type { JSX } from "react";
+
 import { ActionComposer } from "./components/ActionComposer";
 import { AdventureList } from "./components/AdventureList";
+import { AppearancePanel } from "./components/AppearancePanel";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
-import { AppearancePanel } from "./components/AppearancePanel";
 import { ContactsPanel } from "./components/ContactsPanel";
 import { DamagePanel } from "./components/DamagePanel";
 import { InventoryPanel } from "./components/InventoryPanel";

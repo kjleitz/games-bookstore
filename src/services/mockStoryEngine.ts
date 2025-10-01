@@ -1,12 +1,12 @@
 import { createStructuredState } from "../domain/adventureFactory";
-import type { AdventureState, JournalEntry, StoryTurn } from "../types/game";
-import type {
-  ExtractStructuredStateOptions,
-  ExtractStructuredStateResult,
-  GenerateTurnOptions,
-  GenerateTurnResult,
-  LlmStoryEngine,
-} from "../types/services";
+import type { AdventureState } from "../domain/types/AdventureState";
+import type { JournalEntry } from "../domain/types/JournalEntry";
+import type { StoryTurn } from "../domain/types/StoryTurn";
+import type { ExtractStructuredStateOptions } from "./types/ExtractStructuredStateOptions";
+import type { ExtractStructuredStateResult } from "./types/ExtractStructuredStateResult";
+import type { GenerateTurnOptions } from "./types/GenerateTurnOptions";
+import type { GenerateTurnResult } from "./types/GenerateTurnResult";
+import type { LlmStoryEngine } from "./types/LlmStoryEngine";
 
 function buildNarrative(playerAction: string, turnNumber: number): string {
   const action = playerAction.trim();
@@ -57,7 +57,9 @@ export class MockStoryEngine implements LlmStoryEngine {
     return Promise.resolve({ turn });
   }
 
-  extractStructuredState(options: ExtractStructuredStateOptions): Promise<ExtractStructuredStateResult> {
+  extractStructuredState(
+    options: ExtractStructuredStateOptions,
+  ): Promise<ExtractStructuredStateResult> {
     const clonedAdventure: AdventureState = structuredClone(options.adventure);
     if (clonedAdventure.structured == null) {
       clonedAdventure.structured = createStructuredState();

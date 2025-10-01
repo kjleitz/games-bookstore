@@ -1,11 +1,15 @@
-import type { GameSettings } from "../types/settings";
-import type { SettingsGateway } from "../types/services";
+import type { GameSettings } from "../settings/types/GameSettings";
+import { SettingsStore } from "../storage/types/SettingsStore";
+import type { SettingsGateway } from "./types/SettingsGateway";
 
-function requireSettingsStore(): typeof window.settingsStore {
-  if (typeof window === "undefined" || window.settingsStore == null) {
+function requireSettingsStore(): SettingsStore {
+  const { settingsStore } = window ?? {};
+
+  if (settingsStore == null) {
     throw new Error("settingsStore API is not available in this environment");
   }
-  return window.settingsStore;
+
+  return settingsStore;
 }
 
 export class ElectronSettingsGateway implements SettingsGateway {

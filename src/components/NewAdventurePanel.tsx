@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { type JSX, useEffect, useState } from "react";
 
 import { useGameContext } from "../context/useGameContext";
-import { StaticPromptRepository } from "../services/staticPromptRepository";
-import type { StoryPromptOption } from "../types/game";
+import type { StoryPromptOption } from "../domain/types/StoryPromptOption";
+import { StaticPromptRepository } from "../services/StaticPromptRepository";
 import { PanelCard } from "./PanelCard";
 
 const promptRepository = new StaticPromptRepository();

@@ -1,11 +1,16 @@
-import type { AdventureState, AdventureSummary } from "../types/game";
-import type { AdventureRepository } from "../types/services";
+import type { AdventureState } from "../domain/types/AdventureState";
+import type { AdventureSummary } from "../domain/types/AdventureSummary";
+import { GameStore } from "../storage/types/GameStore";
+import type { AdventureRepository } from "./types/AdventureRepository";
 
-function requireGameStore(): typeof window.gameStore {
-  if (typeof window === "undefined" || window.gameStore == null) {
+function requireGameStore(): GameStore {
+  const { gameStore } = window ?? {};
+
+  if (gameStore == null) {
     throw new Error("gameStore API is not available in this environment");
   }
-  return window.gameStore;
+
+  return gameStore;
 }
 
 export class ElectronAdventureRepository implements AdventureRepository {

@@ -1,10 +1,12 @@
-import { app, BrowserWindow, ipcMain } from "electron";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { AdventureState, AdventureSummary } from "../src/types/game";
-import type { GameSettings } from "../src/types/settings";
+import { app, BrowserWindow, ipcMain } from "electron";
+
+import type { AdventureState } from "../src/domain/types/AdventureState";
+import type { AdventureSummary } from "../src/domain/types/AdventureSummary";
+import type { GameSettings } from "../src/settings/types/GameSettings";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -14,7 +16,9 @@ export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
 
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
+  ? path.join(process.env.APP_ROOT, "public")
+  : RENDERER_DIST;
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -110,7 +114,9 @@ async function saveSettingsFile(settings: GameSettings): Promise<void> {
 
 function registerIpcHandlers(): void {
   ipcMain.handle("adventure:list", async () => listAdventureSummaries());
-  ipcMain.handle("adventure:load", async (_event, adventureId: string) => readAdventureFile(adventureId));
+  ipcMain.handle("adventure:load", async (_event, adventureId: string) =>
+    readAdventureFile(adventureId),
+  );
   ipcMain.handle("adventure:save", async (_event, adventure: AdventureState) => {
     await writeAdventureFile(adventure);
     return true;
@@ -131,7 +137,7 @@ function createWindow(): void {
     width: 1440,
     height: 900,
     backgroundColor: "#05070a",
-    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+    icon: path.join(process.env.VITE_PUBLIC ?? "", "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
     },

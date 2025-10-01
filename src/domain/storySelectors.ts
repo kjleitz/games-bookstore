@@ -1,4 +1,4 @@
-import type { AdventureState } from "../types/game";
+import type { AdventureState } from "./types/AdventureState";
 
 export function getCurrentTurn(adventure: AdventureState): number {
   return adventure.turns.length;

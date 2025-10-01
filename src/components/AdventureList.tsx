@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type JSX, useState } from "react";
 
 import { useGameContext } from "../context/useGameContext";
 import { PanelCard } from "./PanelCard";

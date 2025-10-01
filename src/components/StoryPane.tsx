@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { type JSX, useMemo } from "react";
 
 import { useGameContext } from "../context/useGameContext";
-import type { StoryTurn } from "../types/game";
+import type { StoryTurn } from "../domain/types/StoryTurn";
 
 export function StoryPane(): JSX.Element {
   const { activeAdventure, isLoading, error } = useGameContext();
@@ -33,8 +33,12 @@ export function StoryPane(): JSX.Element {
     <div className="flex h-full flex-col gap-4 rounded-panel border border-border/60 bg-surface/80 p-6 shadow-glow">
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-xl text-textPrimary">{activeAdventure.metadata.title}</h1>
-          <p className="text-xs uppercase tracking-[0.3em] text-textSecondary">Interactive narrative</p>
+          <h1 className="font-display text-xl text-textPrimary">
+            {activeAdventure.metadata.title}
+          </h1>
+          <p className="text-xs uppercase tracking-[0.3em] text-textSecondary">
+            Interactive narrative
+          </p>
         </div>
         {error != null && <span className="text-xs text-danger">{error}</span>}
       </header>

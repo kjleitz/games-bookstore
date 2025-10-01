@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 import { useTheme } from "../context/useTheme";
 
 export function ThemeToggle(): JSX.Element {

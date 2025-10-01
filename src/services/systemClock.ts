@@ -1,4 +1,4 @@
-import type { Clock } from "../types/services";
+import type { Clock } from "./types/Clock";
 
 export class SystemClock implements Clock {
   now(): string {

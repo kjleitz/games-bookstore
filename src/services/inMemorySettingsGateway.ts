@@ -1,5 +1,5 @@
-import type { GameSettings } from "../types/settings";
-import type { SettingsGateway } from "../types/services";
+import type { GameSettings } from "../settings/types/GameSettings";
+import type { SettingsGateway } from "./types/SettingsGateway";
 
 const DEFAULT_SETTINGS: GameSettings = {
   adventureDirectory: "adventures",

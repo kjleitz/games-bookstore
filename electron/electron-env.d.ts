@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-electron/electron-env" />
 
-import type { AdventureState, AdventureSummary } from "../src/types/game";
-import type { GameSettings } from "../src/types/settings";
+import type { AdventureState, AdventureSummary } from "../src/domain/types";
+import type { GameSettings } from "../src/settings/types";
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -25,5 +25,3 @@ declare global {
     };
   }
 }
-
-export {};

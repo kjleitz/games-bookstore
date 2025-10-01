@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 import { useGameContext } from "../context/useGameContext";
 import { PanelCard } from "./PanelCard";
 
@@ -12,7 +14,10 @@ export function MapPanel(): JSX.Element {
       ) : (
         <div className="space-y-3">
           {locations.map((location) => (
-            <div key={location.id} className="rounded-panel border border-border/30 bg-surface/60 p-3">
+            <div
+              key={location.id}
+              className="rounded-panel border border-border/30 bg-surface/60 p-3"
+            >
               <div className="flex items-center justify-between text-sm text-textPrimary">
                 <span>{location.name}</span>
                 <span className="text-xs text-textSecondary">

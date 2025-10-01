@@ -22,7 +22,10 @@ export function ActionComposer(): ReactElement | null {
   };
 
   return (
-    <form onSubmit={(event) => void handleSubmit(event)} className="mt-4 flex items-center gap-3 rounded-panel border border-border/60 bg-surface/80 p-4 shadow-glow">
+    <form
+      onSubmit={(event) => void handleSubmit(event)}
+      className="mt-4 flex items-center gap-3 rounded-panel border border-border/60 bg-surface/80 p-4 shadow-glow"
+    >
       <label className="flex-1">
         <span className="sr-only">Player action</span>
         <input

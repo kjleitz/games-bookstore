@@ -1,15 +1,15 @@
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 
 import { GameProvider } from "../context/GameProvider";
 import { SettingsProvider } from "../context/SettingsProvider";
 import { ThemeProvider } from "../context/ThemeProvider";
-import { ElectronAdventureRepository } from "../services/electronAdventureRepository";
-import { ElectronSettingsGateway } from "../services/electronSettingsGateway";
-import { GameService } from "../services/gameService";
-import { InMemoryAdventureRepository } from "../services/inMemoryAdventureRepository";
-import { InMemorySettingsGateway } from "../services/inMemorySettingsGateway";
-import { MockStoryEngine } from "../services/mockStoryEngine";
-import { SystemClock } from "../services/systemClock";
+import { ElectronAdventureRepository } from "../services/ElectronAdventureRepository";
+import { ElectronSettingsGateway } from "../services/ElectronSettingsGateway";
+import { GameService } from "../services/GameService";
+import { InMemoryAdventureRepository } from "../services/InMemoryAdventureRepository";
+import { InMemorySettingsGateway } from "../services/InMemorySettingsGateway";
+import { MockStoryEngine } from "../services/MockStoryEngine";
+import { SystemClock } from "../services/SystemClock";
 
 const isElectronEnvironment = typeof window !== "undefined" && window.gameStore != null;
 
@@ -25,7 +25,9 @@ const storyEngine = new MockStoryEngine();
 const clock = new SystemClock();
 const gameService = new GameService(adventureRepository, storyEngine, clock);
 
-const settingsGateway = isElectronEnvironment ? new ElectronSettingsGateway() : new InMemorySettingsGateway();
+const settingsGateway = isElectronEnvironment
+  ? new ElectronSettingsGateway()
+  : new InMemorySettingsGateway();
 
 export function AppProviders({ children }: { children: ReactNode }): JSX.Element {
   return (
