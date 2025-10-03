@@ -12,7 +12,7 @@
 - Maintain strict guardrails so the LLM remains lenient yet realistic, occasionally giving corrective feedback.
 
 ## Story Persistence and Management
-- Automatically persist active adventures after every turn, including narrative transcript and structured state (items, journal, damage, map, contacts, appearance, and any future entities).
+- Automatically persist active adventures after every turn, including narrative transcript and structured state (items, journal, damage/vitals, map, contacts, appearance, and any future entities).
 - Provide a menu to list saved adventures, resume them, and start new ones from curated prompts.
 - Persist all structured data in JSON files on disk alongside the transcript in a consistent schema per entity type.
 
@@ -28,7 +28,7 @@
 - Architect the system to support three execution modes (inline with story output, single follow-up call, or per-entity calls) with mode B (single follow-up call) as the preferred default.
 
 ## UI and UX
-- Build the layout with a center-aligned story pane surrounded by collapsible panels for inventory, journal, map, contacts, damage, and appearance.
+- Build the layout with a center-aligned story pane surrounded by collapsible panels for inventory, journal, map, contacts, damage/vitals, and appearance.
 - Ensure panels can expand/collapse and adapt for future mobile-friendly layouts.
 - Apply a futuristic terminal visual style using Tailwind CSS, with theme support (dark default, optional light theme). Theme variables must control color, typography, spacing, and corner radius.
 - Include a dedicated phone-style interaction UI for contacts that initiates side conversations with the LLM and returns to the main story when complete.

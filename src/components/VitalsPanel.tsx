@@ -3,20 +3,20 @@ import { type JSX, useMemo } from "react";
 import { useGameContext } from "../context/useGameContext";
 import { PanelCard } from "./PanelCard";
 
-export function DamagePanel(): JSX.Element {
+export function VitalsPanel(): JSX.Element {
   const { activeAdventure } = useGameContext();
-  const damageState = activeAdventure?.structured.damage;
+  const vitalsState = activeAdventure?.structured.vitals;
 
   const healthPercent = useMemo<number>(() => {
-    if (damageState == null || damageState.maxHealth <= 0) {
+    if (vitalsState == null || vitalsState.maxHealth <= 0) {
       return 0;
     }
-    return Math.min(100, Math.round((damageState.currentHealth / damageState.maxHealth) * 100));
-  }, [damageState]);
+    return Math.min(100, Math.round((vitalsState.currentHealth / vitalsState.maxHealth) * 100));
+  }, [vitalsState]);
 
   return (
     <PanelCard title="Vitals" className="flex-1 min-h-0 overflow-hidden">
-      {damageState == null ? (
+      {vitalsState == null ? (
         <p className="text-textSecondary">Vitals unavailable.</p>
       ) : (
         <div className="flex flex-col">
@@ -24,7 +24,7 @@ export function DamagePanel(): JSX.Element {
             <div className="flex items-center justify-between uppercase tracking-[0.18em] text-textSecondary">
               <span>Health</span>
               <span>
-                {damageState.currentHealth} / {damageState.maxHealth}
+                {vitalsState.currentHealth} / {vitalsState.maxHealth}
               </span>
             </div>
             <div className="h-2 w-full rounded-full bg-surfaceMuted">
@@ -37,10 +37,10 @@ export function DamagePanel(): JSX.Element {
           <div>
             <h3 className="terminal-label">Conditions</h3>
             <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
-              {damageState.conditions.length === 0 ? (
+              {vitalsState.conditions.length === 0 ? (
                 <li className="text-textSecondary">None</li>
               ) : (
-                damageState.conditions.map((condition) => (
+                vitalsState.conditions.map((condition) => (
                   <li
                     key={condition.id}
                     className="rounded-panel border border-border/40 bg-surface/70"

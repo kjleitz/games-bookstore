@@ -1,11 +1,11 @@
 import { createStructuredState } from "../domain/adventureFactory";
 import type { AdventureState } from "../domain/types/AdventureState";
 import type { JournalEntry } from "../domain/types/JournalEntry";
-import type { StructuredState } from "../domain/types/StructuredState";
 import type { StoryTurn } from "../domain/types/StoryTurn";
-import type { StructuredStateProjector } from "./types/StructuredStateProjector";
+import type { StructuredState } from "../domain/types/StructuredState";
 import type { StructuredStateProjectionOptions } from "./types/StructuredStateProjectionOptions";
 import type { StructuredStateProjectionResult } from "./types/StructuredStateProjectionResult";
+import type { StructuredStateProjector } from "./types/StructuredStateProjector";
 
 function cloneStructuredState(adventure: AdventureState): StructuredState {
   if (adventure.structured == null) {
@@ -36,9 +36,9 @@ export class MockStructuredStateProjector implements StructuredStateProjector {
       structuredState.journal = [journalEntry, ...structuredState.journal];
     }
 
-    structuredState.damage = {
-      ...structuredState.damage,
-      currentHealth: Math.max(1, structuredState.damage.currentHealth - 1),
+    structuredState.vitals = {
+      ...structuredState.vitals,
+      currentHealth: Math.max(1, structuredState.vitals.currentHealth - 1),
     };
 
     return Promise.resolve({ structured: structuredState });

@@ -19,7 +19,7 @@ Adventure:
 Stories:
 
 - newly played stories are saved to disk automatically as they progress
-  - they are accompanied by their JSON inventory, journal, damage, map, and contacts data (this list is not exhaustive)
+  - they are accompanied by their JSON inventory, journal, damage/vitals, map, and contacts data (this list is not exhaustive)
 - you can select which saved story you want to continue from a menu screen
 - to start a new story, you can start from a list of interesting and varied adventure prompts, each of which can be clicked to start that adventure
 
@@ -39,7 +39,7 @@ Journal:
 - each entry is returned from the LLM as JSON in the "JournalEntry" format, which we store in storage and display in the UI wherever we put the journal
 - you can also add your own entries to the journal manually by typing it in
 
-Damage:
+Vitals:
 
 - Health
   - json format for storing current health points, total health points, etc.

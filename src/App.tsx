@@ -6,12 +6,12 @@ import { AppearancePanel } from "./components/AppearancePanel";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import { ContactsPanel } from "./components/ContactsPanel";
-import { DamagePanel } from "./components/DamagePanel";
 import { InventoryPanel } from "./components/InventoryPanel";
 import { JournalPanel } from "./components/JournalPanel";
 import { MapPanel } from "./components/MapPanel";
 import { NewAdventurePanel } from "./components/NewAdventurePanel";
 import { StoryPane } from "./components/StoryPane";
+import { VitalsPanel } from "./components/VitalsPanel";
 
 export function App(): JSX.Element {
   return (
@@ -39,7 +39,7 @@ export function App(): JSX.Element {
           </div>
           <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] overflow-x-hidden overflow-y-scroll">
             <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
-              <DamagePanel />
+              <VitalsPanel />
             </div>
             <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
               <InventoryPanel />

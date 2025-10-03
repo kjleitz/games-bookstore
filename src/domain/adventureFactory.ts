@@ -1,9 +1,9 @@
 import type { AdventureMetadata } from "./types/AdventureMetadata";
 import type { AdventureState } from "./types/AdventureState";
-import type { DamageState } from "./types/DamageState";
 import type { StructuredState } from "./types/StructuredState";
+import type { VitalsState } from "./types/VitalsState";
 
-export const DEFAULT_DAMAGE_STATE: DamageState = {
+export const DEFAULT_VITALS_STATE: VitalsState = {
   currentHealth: 10,
   maxHealth: 10,
   conditions: [],
@@ -13,7 +13,7 @@ export function createStructuredState(): StructuredState {
   return {
     inventory: [],
     journal: [],
-    damage: { ...DEFAULT_DAMAGE_STATE },
+    vitals: { ...DEFAULT_VITALS_STATE },
     map: [],
     contacts: [],
     appearanceHistory: [],
