@@ -3,9 +3,10 @@ import type { AdventureState } from "../domain/types/AdventureState";
 import type { AdventureSummary } from "../domain/types/AdventureSummary";
 import type { AdventureRepository } from "./types/AdventureRepository";
 import type { Clock } from "./types/Clock";
-import type { ExtractStructuredStateResult } from "./types/ExtractStructuredStateResult";
 import type { GenerateTurnResult } from "./types/GenerateTurnResult";
-import type { LlmStoryEngine } from "./types/LlmStoryEngine";
+import type { StoryEngine } from "./types/StoryEngine";
+import type { StructuredStateProjector } from "./types/StructuredStateProjector";
+import type { StructuredStateProjectionResult } from "./types/StructuredStateProjectionResult";
 
 export interface StartAdventureInput {
   title: string;
@@ -16,7 +17,8 @@ export interface StartAdventureInput {
 export class GameService {
   constructor(
     private readonly adventureRepository: AdventureRepository,
-    private readonly storyEngine: LlmStoryEngine,
+    private readonly storyEngine: StoryEngine,
+    private readonly structuredStateProjector: StructuredStateProjector,
     private readonly clock: Clock,
   ) {}
 
@@ -46,17 +48,17 @@ export class GameService {
     updatedAdventure.turns.push(turnResult.turn);
     updatedAdventure.metadata.updatedAt = this.clock.now();
 
-    const extractionResult: ExtractStructuredStateResult =
-      await this.storyEngine.extractStructuredState({
+    const projectionResult: StructuredStateProjectionResult =
+      await this.structuredStateProjector.project({
         adventure: updatedAdventure,
         mostRecentTurn: turnResult.turn,
       });
 
-    const finalAdventure = extractionResult.adventure;
-    finalAdventure.metadata.updatedAt = this.clock.now();
+    updatedAdventure.structured = projectionResult.structured;
+    updatedAdventure.metadata.updatedAt = this.clock.now();
 
-    await this.adventureRepository.saveAdventure(finalAdventure);
-    return finalAdventure;
+    await this.adventureRepository.saveAdventure(updatedAdventure);
+    return updatedAdventure;
   }
 
   async deleteAdventure(adventureId: string): Promise<void> {

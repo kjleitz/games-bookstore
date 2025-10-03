@@ -1,12 +1,8 @@
-import { createStructuredState } from "../domain/adventureFactory";
 import type { AdventureState } from "../domain/types/AdventureState";
-import type { JournalEntry } from "../domain/types/JournalEntry";
 import type { StoryTurn } from "../domain/types/StoryTurn";
-import type { ExtractStructuredStateOptions } from "./types/ExtractStructuredStateOptions";
-import type { ExtractStructuredStateResult } from "./types/ExtractStructuredStateResult";
 import type { GenerateTurnOptions } from "./types/GenerateTurnOptions";
 import type { GenerateTurnResult } from "./types/GenerateTurnResult";
-import type { LlmStoryEngine } from "./types/LlmStoryEngine";
+import type { StoryEngine } from "./types/StoryEngine";
 
 function buildNarrative(playerAction: string, turnNumber: number): string {
   const action = playerAction.trim();
@@ -38,43 +34,9 @@ function createStoryTurn(adventure: AdventureState, playerAction: string): Story
   };
 }
 
-function createJournalEntry(turn: StoryTurn): JournalEntry | null {
-  if (turn.playerAction.trim().length === 0) {
-    return null;
-  }
-
-  return {
-    id: crypto.randomUUID(),
-    createdAt: turn.createdAt,
-    title: `Action ${turn.playerAction}`,
-    notes: `The engine recorded the player's intent: ${turn.playerAction}.`,
-  };
-}
-
-export class MockStoryEngine implements LlmStoryEngine {
+export class MockStoryEngine implements StoryEngine {
   generateTurn(options: GenerateTurnOptions): Promise<GenerateTurnResult> {
     const turn = createStoryTurn(options.adventure, options.playerAction);
     return Promise.resolve({ turn });
-  }
-
-  extractStructuredState(
-    options: ExtractStructuredStateOptions,
-  ): Promise<ExtractStructuredStateResult> {
-    const clonedAdventure: AdventureState = structuredClone(options.adventure);
-    if (clonedAdventure.structured == null) {
-      clonedAdventure.structured = createStructuredState();
-    }
-
-    const newEntry = createJournalEntry(options.mostRecentTurn);
-    if (newEntry != null) {
-      clonedAdventure.structured.journal = [newEntry, ...clonedAdventure.structured.journal];
-    }
-
-    clonedAdventure.structured.damage = {
-      ...clonedAdventure.structured.damage,
-      currentHealth: Math.max(1, clonedAdventure.structured.damage.currentHealth - 1),
-    };
-
-    return Promise.resolve({ adventure: clonedAdventure });
   }
 }

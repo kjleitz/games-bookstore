@@ -9,6 +9,7 @@ import { GameService } from "../services/GameService";
 import { InMemoryAdventureRepository } from "../services/InMemoryAdventureRepository";
 import { InMemorySettingsGateway } from "../services/InMemorySettingsGateway";
 import { MockStoryEngine } from "../services/MockStoryEngine";
+import { MockStructuredStateProjector } from "../services/MockStructuredStateProjector";
 import { SystemClock } from "../services/SystemClock";
 
 const isElectronEnvironment = typeof window !== "undefined" && window.gameStore != null;
@@ -22,8 +23,9 @@ if (!isElectronEnvironment && adventureRepository instanceof InMemoryAdventureRe
 }
 
 const storyEngine = new MockStoryEngine();
+const structuredStateProjector = new MockStructuredStateProjector();
 const clock = new SystemClock();
-const gameService = new GameService(adventureRepository, storyEngine, clock);
+const gameService = new GameService(adventureRepository, storyEngine, structuredStateProjector, clock);
 
 const settingsGateway = isElectronEnvironment
   ? new ElectronSettingsGateway()
