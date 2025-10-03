@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{ts,tsx,js,jsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
       colors: {
@@ -23,9 +20,6 @@ export default {
         mono: ["var(--font-monospace)", "monospace"],
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
-      },
-      boxShadow: {
-        glow: "0 0 0 1px var(--color-border), 0 18px 32px -32px rgba(0, 0, 0, 0.9)",
       },
       borderRadius: {
         chrome: "var(--radius-chrome)",

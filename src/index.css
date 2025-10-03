@@ -14,7 +14,7 @@
   --font-display: "JetBrains Mono";
   --font-monospace: "JetBrains Mono";
   --font-size-base: 0.9rem;
-  --line-height-base: 1.75;
+  --line-height-base: 1.25;
 
   --color-canvas: #080b0d;
   --color-surface: #11171c;
@@ -74,6 +74,14 @@ a {
   text-decoration: none;
 }
 
+.text-textPrimary {
+  color: var(--color-text-primary);
+}
+
+.text-textSecondary {
+  color: var(--color-text-secondary);
+}
+
 @layer base {
   *,
   *::before,
@@ -109,13 +117,21 @@ a {
     border-radius: var(--radius-panel);
     border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
     background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-border) 40%, transparent),
-      0 18px 32px -32px rgba(0, 0, 0, 0.9);
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     padding-left: 1ch;
-    padding-right: 1ch;
+    margin-top: 1em;
+    margin-left: 1ch;
+    margin-right: 1ch;
   }
 
   .panel-shell-muted {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1ch;
+    margin-top: 1em;
+    margin-left: 1ch;
+    margin-right: 1ch;
     border-radius: var(--radius-panel);
     border: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
     background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
@@ -123,9 +139,9 @@ a {
 
   .panel-section-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    /* border-bottom: 1px solid color-mix(in srgb, var(--color-border) 45%, transparent); */
+    padding-bottom: 1em;
     font-size: 1em;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -175,6 +191,7 @@ a {
     text-transform: uppercase;
     color: var(--color-text-secondary);
     transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
+    margin-right: 1ch;
   }
 
   .terminal-button:hover {

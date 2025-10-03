@@ -1,9 +1,13 @@
 import { type JSX, useState } from "react";
 
 import { useGameContext } from "../context/useGameContext";
-import { PanelCard } from "./PanelCard";
+import { PanelCard, type PanelControls } from "./PanelCard";
 
-export function AdventureList(): JSX.Element {
+interface AdventureListProps {
+  controls: PanelControls;
+}
+
+export function AdventureList({ controls }: AdventureListProps): JSX.Element {
   const {
     adventures,
     activeAdventure,
@@ -27,6 +31,7 @@ export function AdventureList(): JSX.Element {
           Refresh
         </button>
       }
+      controls={controls}
     >
       {isLoading && <p className="text-textSecondary">Loading adventures…</p>}
       {!isLoading && adventures.length === 0 && <p className="text-textSecondary">No adventures yet.</p>}

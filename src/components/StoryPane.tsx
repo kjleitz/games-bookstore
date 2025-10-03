@@ -32,17 +32,22 @@ export function StoryPane(): JSX.Element {
   return (
     <div className="panel-shell flex h-full flex-col">
       <header className="panel-section-header">
-        <span>[ {activeAdventure.metadata.title} ]</span>
-        {error != null && <span className="text-danger">{error}</span>}
+        <span className="whitespace-nowrap">[ Story ]</span>
+        <span className="mx-[1ch] text-textSecondary text-right">
+          &gt; {activeAdventure.metadata.title}
+        </span>
       </header>
+      <span className="text-danger">{error}</span>
       <div className="panel-scroll">
         <ul className="flex h-full min-h-0 flex-col overflow-y-auto text-textSecondary">
           {turns.map((turn) => (
-            <li key={turn.id} className="border-l-2 border-accent/80">
-              <div className="uppercase tracking-[0.18em] text-textSecondary">
-                {new Date(turn.createdAt).toLocaleTimeString()}
-              </div>
-              <p className="text-accent">&gt; {turn.playerAction}</p>
+            <li key={turn.id} className="border-l-2 border-accent/80 px-[1ch] mt-[1em]">
+              <p className="text-accent mb-[1em]">
+                <span className="uppercase tracking-[0.18em] text-textSecondary mb-[1em]">
+                  [{new Date(turn.createdAt).toLocaleTimeString()}]
+                </span>{" "}
+                &gt; {turn.playerAction}
+              </p>
               <p className="text-textPrimary">{turn.narrative}</p>
             </li>
           ))}

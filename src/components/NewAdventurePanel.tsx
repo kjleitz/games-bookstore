@@ -3,11 +3,15 @@ import { type JSX, useEffect, useState } from "react";
 import { useGameContext } from "../context/useGameContext";
 import type { StoryPromptOption } from "../domain/types/StoryPromptOption";
 import { StaticPromptRepository } from "../services/StaticPromptRepository";
-import { PanelCard } from "./PanelCard";
+import { PanelCard, type PanelControls } from "./PanelCard";
 
 const promptRepository = new StaticPromptRepository();
 
-export function NewAdventurePanel(): JSX.Element {
+interface NewAdventurePanelProps {
+  controls: PanelControls;
+}
+
+export function NewAdventurePanel({ controls }: NewAdventurePanelProps): JSX.Element {
   const { startAdventure, isSubmitting } = useGameContext();
   const [prompts, setPrompts] = useState<StoryPromptOption[]>([]);
   const [selectedPromptId, setSelectedPromptId] = useState<string | null>(null);
@@ -41,7 +45,7 @@ export function NewAdventurePanel(): JSX.Element {
   };
 
   return (
-    <PanelCard title="New Adventure">
+    <PanelCard title="New Adventure" controls={controls} className="h-full overflow-hidden">
       <div className="flex flex-col text-textSecondary">
         <label className="flex flex-col">
           <span className="terminal-label">Title</span>

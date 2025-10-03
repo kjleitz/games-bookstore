@@ -1,14 +1,18 @@
 import type { JSX } from "react";
 
 import { useGameContext } from "../context/useGameContext";
-import { PanelCard } from "./PanelCard";
+import { PanelCard, type PanelControls } from "./PanelCard";
 
-export function MapPanel(): JSX.Element {
+interface MapPanelProps {
+  controls: PanelControls;
+}
+
+export function MapPanel({ controls }: MapPanelProps): JSX.Element {
   const { activeAdventure } = useGameContext();
   const locations = activeAdventure?.structured.map ?? [];
 
   return (
-    <PanelCard title="Map" className="flex-1 min-h-0 overflow-hidden">
+    <PanelCard title="Map" className="flex-1 min-h-0 overflow-hidden" controls={controls}>
       {locations.length === 0 ? (
         <p className="text-textSecondary">No locations recorded yet.</p>
       ) : (

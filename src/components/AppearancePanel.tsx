@@ -1,14 +1,18 @@
 import type { JSX } from "react";
 
 import { useGameContext } from "../context/useGameContext";
-import { PanelCard } from "./PanelCard";
+import { PanelCard, type PanelControls } from "./PanelCard";
 
-export function AppearancePanel(): JSX.Element {
+interface AppearancePanelProps {
+  controls: PanelControls;
+}
+
+export function AppearancePanel({ controls }: AppearancePanelProps): JSX.Element {
   const { activeAdventure } = useGameContext();
   const history = activeAdventure?.structured.appearanceHistory ?? [];
 
   return (
-    <PanelCard title="Appearance" className="flex-1 min-h-0 overflow-hidden">
+    <PanelCard title="Appearance" className="flex-1 min-h-0 overflow-hidden" controls={controls}>
       {history.length === 0 ? (
         <p className="text-textSecondary">No appearance changes logged.</p>
       ) : (
