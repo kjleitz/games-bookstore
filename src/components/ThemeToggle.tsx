@@ -9,7 +9,7 @@ export function ThemeToggle(): JSX.Element {
     <button
       type="button"
       onClick={toggleTheme}
-      className="rounded-panel border border-border/40 bg-surface/60 px-3 py-2 text-xs uppercase tracking-[0.3em] text-textSecondary hover:border-accent hover:text-textPrimary"
+      className="terminal-button"
     >
       {isDark ? "Switch Light" : "Switch Dark"}
     </button>

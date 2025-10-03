@@ -15,7 +15,7 @@ export function StoryPane(): JSX.Element {
 
   if (isLoading && activeAdventure == null) {
     return (
-      <div className="flex h-full items-center justify-center rounded-panel border border-border/40 bg-surface/60 text-textSecondary">
+      <div className="panel-shell flex h-full items-center justify-center text-textSecondary">
         Loading…
       </div>
     );
@@ -23,34 +23,27 @@ export function StoryPane(): JSX.Element {
 
   if (activeAdventure == null) {
     return (
-      <div className="flex h-full items-center justify-center rounded-panel border border-dashed border-border/40 bg-surface/40 text-textSecondary">
+      <div className="panel-shell-muted flex h-full items-center justify-center text-textSecondary">
         Select or create an adventure to begin.
       </div>
     );
   }
 
   return (
-    <div className="flex h-full flex-col gap-4 rounded-panel border border-border/60 bg-surface/80 p-6 shadow-glow">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="font-display text-xl text-textPrimary">
-            {activeAdventure.metadata.title}
-          </h1>
-          <p className="text-xs uppercase tracking-[0.3em] text-textSecondary">
-            Interactive narrative
-          </p>
-        </div>
-        {error != null && <span className="text-xs text-danger">{error}</span>}
+    <div className="panel-shell flex h-full flex-col">
+      <header className="panel-section-header">
+        <span>[ {activeAdventure.metadata.title} ]</span>
+        {error != null && <span className="text-danger">{error}</span>}
       </header>
-      <div className="flex-1 overflow-y-auto rounded-panel border border-border/40 bg-canvas/60 p-4">
-        <ul className="flex flex-col gap-6 text-sm leading-relaxed text-textSecondary">
+      <div className="panel-scroll">
+        <ul className="flex h-full min-h-0 flex-col overflow-y-auto text-textSecondary">
           {turns.map((turn) => (
-            <li key={turn.id} className="rounded-panel border border-border/20 bg-surface/40 p-4">
-              <div className="text-xs uppercase tracking-[0.25em] text-textSecondary">
+            <li key={turn.id} className="border-l-2 border-accent/80">
+              <div className="uppercase tracking-[0.18em] text-textSecondary">
                 {new Date(turn.createdAt).toLocaleTimeString()}
               </div>
-              <p className="mt-2 font-mono text-[13px] text-accent">&gt; {turn.playerAction}</p>
-              <p className="mt-3 text-textPrimary">{turn.narrative}</p>
+              <p className="text-accent">&gt; {turn.playerAction}</p>
+              <p className="text-textPrimary">{turn.narrative}</p>
             </li>
           ))}
         </ul>

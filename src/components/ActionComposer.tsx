@@ -24,22 +24,22 @@ export function ActionComposer(): ReactElement | null {
   return (
     <form
       onSubmit={(event) => void handleSubmit(event)}
-      className="mt-4 flex items-center gap-3 rounded-panel border border-border/60 bg-surface/80 p-4 shadow-glow"
+      className="panel-shell flex flex-col sm:flex-row sm:items-end"
     >
       <label className="flex-1">
-        <span className="sr-only">Player action</span>
+        <span className="terminal-label">Player action</span>
         <input
           type="text"
           value={actionText}
           onChange={(event) => setActionText(event.target.value)}
           placeholder="Describe a concise action"
-          className="w-full rounded-panel border border-border/40 bg-canvas/60 px-3 py-3 font-mono text-sm text-textPrimary focus:border-accent focus:outline-none"
+          className="terminal-input w-full"
         />
       </label>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-panel border border-accent bg-accent/10 px-4 py-3 font-semibold uppercase tracking-[0.25em] text-textPrimary transition-transform enabled:hover:-translate-y-0.5 disabled:opacity-50"
+        className="terminal-button terminal-button-primary whitespace-nowrap text-textPrimary disabled:opacity-50"
       >
         {isSubmitting ? "Processing…" : "Send"}
       </button>

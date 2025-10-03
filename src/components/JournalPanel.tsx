@@ -8,18 +8,18 @@ export function JournalPanel(): JSX.Element {
   const journal = activeAdventure?.structured.journal ?? [];
 
   return (
-    <PanelCard title="Journal">
+    <PanelCard title="Journal" className="flex-1 min-h-0 overflow-hidden">
       {journal.length === 0 ? (
         <p className="text-textSecondary">No entries yet.</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
           {journal.map((entry) => (
-            <li key={entry.id} className="rounded-panel border border-border/30 bg-surface/60 p-3">
-              <div className="text-xs uppercase tracking-[0.2em] text-textSecondary">
+            <li key={entry.id} className="rounded-panel border border-border/40 bg-surface/70">
+              <div className="uppercase tracking-[0.18em] text-textSecondary">
                 {new Date(entry.createdAt).toLocaleString()}
               </div>
-              <h3 className="mt-1 text-sm font-semibold text-textPrimary">{entry.title}</h3>
-              <p className="mt-2 text-sm text-textSecondary">{entry.notes}</p>
+              <h3 className="text-textPrimary">{entry.title}</h3>
+              <p className="text-textSecondary">{entry.notes}</p>
             </li>
           ))}
         </ul>

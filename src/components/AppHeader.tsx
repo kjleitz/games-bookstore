@@ -4,12 +4,10 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function AppHeader(): JSX.Element {
   return (
-    <header className="flex items-center justify-between rounded-panel border border-border/60 bg-surface/80 p-4 shadow-glow">
+    <header className="panel-shell flex items-center justify-between border-l-4 border-accent">
       <div>
-        <h1 className="font-display text-lg text-textPrimary">Games Bookstore</h1>
-        <p className="text-xs uppercase tracking-[0.3em] text-textSecondary">
-          Interactive fiction terminal
-        </p>
+        <p className="uppercase tracking-[0.2em] text-accent">Games Bookstore</p>
+        <h1 className="font-medium text-textPrimary">Interactive Fiction CLI</h1>
       </div>
       <ThemeToggle />
     </header>

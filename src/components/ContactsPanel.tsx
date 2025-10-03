@@ -8,24 +8,24 @@ export function ContactsPanel(): JSX.Element {
   const contacts = activeAdventure?.structured.contacts ?? [];
 
   return (
-    <PanelCard title="Contacts">
+    <PanelCard title="Contacts" className="flex-1 min-h-0 overflow-hidden">
       {contacts.length === 0 ? (
         <p className="text-textSecondary">No contacts yet.</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
           {contacts.map((contact) => (
             <li
               key={contact.id}
-              className="rounded-panel border border-border/30 bg-surface/60 p-3"
+              className="rounded-panel border border-border/40 bg-surface/70"
             >
-              <div className="flex items-center justify-between text-sm text-textPrimary">
+              <div className="flex items-center justify-between text-textPrimary">
                 <span>{contact.name}</span>
-                <span className="text-xs text-textSecondary">
+                <span className="uppercase tracking-[0.18em] text-textSecondary">
                   {contact.channels[0]?.type ?? ""}
                 </span>
               </div>
-              <p className="mt-2 text-xs text-textSecondary">{contact.description}</p>
-              <ul className="mt-3 flex flex-col gap-1 text-xs text-accent">
+              <p className="text-textSecondary">{contact.description}</p>
+              <ul className="flex flex-col text-accent">
                 {contact.channels.map((channel) => (
                   <li key={`${contact.id}-${channel.type}-${channel.address}`}>
                     {channel.type}: {channel.address}

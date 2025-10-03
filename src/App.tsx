@@ -15,29 +15,55 @@ import { StoryPane } from "./components/StoryPane";
 
 export function App(): JSX.Element {
   return (
-    <div className="flex min-h-screen flex-col gap-4 bg-canvas p-chrome text-textPrimary">
-      <AppHeader />
-      <main className="grid flex-1 grid-cols-[280px_minmax(0,1fr)_320px] gap-4">
-        <div className="flex flex-col gap-4 overflow-hidden">
-          <NewAdventurePanel />
-          <AdventureList />
-        </div>
-        <div className="flex flex-col overflow-hidden">
-          <StoryPane />
-          <ActionComposer />
-        </div>
-        <div className="grid grid-rows-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] gap-4 overflow-hidden">
-          <DamagePanel />
-          <InventoryPanel />
-          <JournalPanel />
-        </div>
-      </main>
-      <section className="grid gap-4 md:grid-cols-3">
-        <MapPanel />
-        <ContactsPanel />
-        <AppearancePanel />
-      </section>
-      <AppFooter />
+    <div className="flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-canvas text-textPrimary">
+      <div className="flex-none">
+        <AppHeader />
+      </div>
+      <div className="flex flex-1 min-h-0 flex-col overflow-x-hidden overflow-y-scroll">
+        <main className="grid flex-1 min-h-0 grid-cols-[48ch_minmax(0,1fr)_48ch] overflow-x-hidden overflow-y-scroll">
+          <div className="flex h-full min-h-0 flex-col overflow-x-hidden overflow-y-scroll">
+            <div className="flex-none">
+              <NewAdventurePanel />
+            </div>
+            <div className="flex-1 min-h-0 overflow-x-hidden overflow-y-scroll">
+              <AdventureList />
+            </div>
+          </div>
+          <div className="flex h-full min-h-0 flex-col overflow-x-hidden overflow-y-scroll">
+            <div className="flex-1 min-h-0 overflow-x-hidden overflow-y-scroll">
+              <StoryPane />
+            </div>
+            <div className="flex-none">
+              <ActionComposer />
+            </div>
+          </div>
+          <div className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] overflow-x-hidden overflow-y-scroll">
+            <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+              <DamagePanel />
+            </div>
+            <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+              <InventoryPanel />
+            </div>
+            <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+              <JournalPanel />
+            </div>
+          </div>
+        </main>
+        <section className="grid flex-1 min-h-0 overflow-x-hidden overflow-y-scroll md:grid-cols-3">
+          <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+            <MapPanel />
+          </div>
+          <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+            <ContactsPanel />
+          </div>
+          <div className="min-h-0 overflow-x-hidden overflow-y-scroll">
+            <AppearancePanel />
+          </div>
+        </section>
+      </div>
+      <div className="flex-none">
+        <AppFooter />
+      </div>
     </div>
   );
 }

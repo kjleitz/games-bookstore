@@ -17,10 +17,11 @@ export function AdventureList(): JSX.Element {
   return (
     <PanelCard
       title="Adventures"
+      className="flex-1 min-h-0 overflow-hidden"
       footer={
         <button
           type="button"
-          className="text-xs uppercase tracking-[0.25em] text-accent transition-colors hover:text-textPrimary"
+          className="terminal-button text-accent"
           onClick={() => void refreshAdventures()}
         >
           Refresh
@@ -28,28 +29,28 @@ export function AdventureList(): JSX.Element {
       }
     >
       {isLoading && <p className="text-textSecondary">Loading adventures…</p>}
-      {!isLoading && adventures.length === 0 && <p>No adventures yet.</p>}
-      <ul className="flex flex-col gap-3">
+      {!isLoading && adventures.length === 0 && <p className="text-textSecondary">No adventures yet.</p>}
+      <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
         {adventures.map((adventure) => {
           const isActive = activeAdventure != null && adventure.id === activeAdventure.metadata.id;
           return (
-            <li key={adventure.id} className="flex flex-col gap-1">
+            <li key={adventure.id} className="flex flex-col">
               <button
                 type="button"
                 onClick={() => void selectAdventure(adventure.id)}
-                className={`w-full rounded-panel border px-3 py-2 text-left transition-colors ${
+                className={`w-full rounded-panel border text-left transition-colors ${
                   isActive
-                    ? "border-accent bg-accent/10 text-textPrimary"
-                    : "border-border/40 bg-surface/60 text-textSecondary hover:border-accent/60 hover:text-textPrimary"
+                    ? "border-accent bg-accent/20 text-textPrimary"
+                    : "border-border/40 bg-surface/70 text-textSecondary hover:border-accent hover:text-textPrimary"
                 }`}
               >
-                <div className="flex items-center justify-between text-xs uppercase tracking-[0.25em]">
-                  <span>{adventure.title}</span>
+                <div className="flex items-center justify-between uppercase tracking-[0.18em]">
+                  <span className="text-textPrimary">{adventure.title}</span>
                   <span>{new Date(adventure.updatedAt).toLocaleDateString()}</span>
                 </div>
-                <p className="mt-2 text-xs text-textSecondary">{adventure.seedPrompt}</p>
+                <p className="text-textSecondary">{adventure.seedPrompt}</p>
               </button>
-              <div className="flex gap-2 text-xs text-textSecondary">
+              <div className="flex uppercase tracking-[0.18em] text-textSecondary">
                 {pendingDeleteId === adventure.id ? (
                   <>
                     <span>Delete?</span>

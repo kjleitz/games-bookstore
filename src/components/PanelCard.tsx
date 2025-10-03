@@ -4,18 +4,20 @@ interface PanelCardProps {
   title: string;
   children: ReactNode;
   footer?: ReactNode;
+  className?: string;
 }
 
-export function PanelCard({ title, children, footer }: PanelCardProps): JSX.Element {
+export function PanelCard({ title, children, footer, className }: PanelCardProps): JSX.Element {
+  const sectionClassName = className != null && className.length > 0
+    ? `panel-shell flex flex-col ${className}`
+    : "panel-shell flex flex-col";
   return (
-    <section className="flex flex-col gap-3 rounded-panel border border-border/60 bg-surface/80 p-4 shadow-glow">
-      <header className="flex items-center justify-between">
-        <h2 className="font-display text-sm uppercase tracking-[0.3em] text-textSecondary">
-          {title}
-        </h2>
+    <section className={sectionClassName}>
+      <header className="panel-section-header">
+        <span>[ {title} ]</span>
         {footer}
       </header>
-      <div className="min-h-0 flex-1 overflow-y-auto text-sm text-textSecondary">{children}</div>
+      <div className="min-h-0 flex-1 overflow-y-auto text-textSecondary">{children}</div>
     </section>
   );
 }

@@ -25,7 +25,7 @@ export default {
         body: ["var(--font-body)", "sans-serif"],
       },
       boxShadow: {
-        glow: "0 0 32px 0 var(--color-accent-muted)",
+        glow: "0 0 0 1px var(--color-border), 0 18px 32px -32px rgba(0, 0, 0, 0.9)",
       },
       borderRadius: {
         chrome: "var(--radius-chrome)",

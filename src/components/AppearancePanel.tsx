@@ -8,22 +8,22 @@ export function AppearancePanel(): JSX.Element {
   const history = activeAdventure?.structured.appearanceHistory ?? [];
 
   return (
-    <PanelCard title="Appearance">
+    <PanelCard title="Appearance" className="flex-1 min-h-0 overflow-hidden">
       {history.length === 0 ? (
         <p className="text-textSecondary">No appearance changes logged.</p>
       ) : (
-        <ul className="flex flex-col gap-3">
+        <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
           {history.map((snapshot) => (
             <li
               key={snapshot.id}
-              className="rounded-panel border border-border/30 bg-surface/60 p-3"
+              className="rounded-panel border border-border/40 bg-surface/70"
             >
-              <div className="text-xs uppercase tracking-[0.2em] text-textSecondary">
+              <div className="uppercase tracking-[0.18em] text-textSecondary">
                 {new Date(snapshot.createdAt).toLocaleString()}
               </div>
-              <p className="mt-2 text-sm text-textPrimary">{snapshot.summary}</p>
+              <p className="text-textPrimary">{snapshot.summary}</p>
               {snapshot.details != null && (
-                <p className="mt-2 text-xs text-textSecondary">{snapshot.details}</p>
+                <p className="text-textSecondary">{snapshot.details}</p>
               )}
             </li>
           ))}

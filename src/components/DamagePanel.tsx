@@ -15,19 +15,19 @@ export function DamagePanel(): JSX.Element {
   }, [damageState]);
 
   return (
-    <PanelCard title="Vitals">
+    <PanelCard title="Vitals" className="flex-1 min-h-0 overflow-hidden">
       {damageState == null ? (
         <p className="text-textSecondary">Vitals unavailable.</p>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           <div>
-            <div className="flex items-center justify-between text-xs text-textSecondary">
+            <div className="flex items-center justify-between uppercase tracking-[0.18em] text-textSecondary">
               <span>Health</span>
               <span>
                 {damageState.currentHealth} / {damageState.maxHealth}
               </span>
             </div>
-            <div className="mt-2 h-2 w-full rounded-full bg-surfaceMuted">
+            <div className="h-2 w-full rounded-full bg-surfaceMuted">
               <div
                 className="h-full rounded-full bg-accent"
                 style={{ width: `${healthPercent}%` }}
@@ -35,23 +35,23 @@ export function DamagePanel(): JSX.Element {
             </div>
           </div>
           <div>
-            <h3 className="text-xs uppercase tracking-[0.2em] text-textSecondary">Conditions</h3>
-            <ul className="mt-2 flex flex-col gap-2">
+            <h3 className="terminal-label">Conditions</h3>
+            <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
               {damageState.conditions.length === 0 ? (
                 <li className="text-textSecondary">None</li>
               ) : (
                 damageState.conditions.map((condition) => (
                   <li
                     key={condition.id}
-                    className="rounded-panel border border-border/20 bg-surface/40 p-2"
+                    className="rounded-panel border border-border/40 bg-surface/70"
                   >
-                    <div className="flex items-center justify-between text-sm text-textPrimary">
+                    <div className="flex items-center justify-between text-textPrimary">
                       <span>{condition.name}</span>
-                      <span className="text-xs uppercase tracking-[0.2em] text-warning">
+                      <span className="uppercase tracking-[0.18em] text-warning">
                         {condition.severity}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-textSecondary">{condition.description}</p>
+                    <p className="text-textSecondary">{condition.description}</p>
                   </li>
                 ))
               )}
