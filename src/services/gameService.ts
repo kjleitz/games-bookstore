@@ -5,8 +5,8 @@ import type { AdventureRepository } from "./types/AdventureRepository";
 import type { Clock } from "./types/Clock";
 import type { GenerateTurnResult } from "./types/GenerateTurnResult";
 import type { StoryEngine } from "./types/StoryEngine";
-import type { StructuredStateProjector } from "./types/StructuredStateProjector";
 import type { StructuredStateProjectionResult } from "./types/StructuredStateProjectionResult";
+import type { StructuredStateProjector } from "./types/StructuredStateProjector";
 
 export interface StartAdventureInput {
   title: string;

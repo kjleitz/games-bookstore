@@ -18,13 +18,10 @@ export function ContactsPanel({ controls }: ContactsPanelProps): JSX.Element {
       ) : (
         <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
           {contacts.map((contact) => (
-            <li
-              key={contact.id}
-              className="rounded-panel border border-border/40 bg-surface/70"
-            >
-              <div className="flex items-center justify-between text-textPrimary">
+            <li key={contact.id} className="rounded-panel border border-border/40 bg-surface/70">
+              <div className="flex items-start justify-between text-textPrimary">
                 <span>{contact.name}</span>
-                <span className="uppercase tracking-[0.18em] text-textSecondary">
+                <span className="uppercase text-textSecondary">
                   {contact.channels[0]?.type ?? ""}
                 </span>
               </div>

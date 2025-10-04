@@ -34,20 +34,22 @@ export function GameProvider({ service, children }: GameProviderProps): JSX.Elem
   }, [refreshAdventures]);
 
   const selectAdventure = useCallback(
-    async (adventureId: string): Promise<void> => {
+    async (adventureId: string): Promise<boolean> => {
       setIsLoading(true);
       try {
         const adventure = await service.loadAdventure(adventureId);
         if (adventure == null) {
           setError("Adventure not found");
           setActiveAdventure(null);
-          return;
+          return false;
         }
         setActiveAdventure(adventure);
         setError(null);
+        return true;
       } catch (loadError) {
         setError(loadError instanceof Error ? loadError.message : "Unable to load adventure");
         setActiveAdventure(null);
+        return false;
       } finally {
         setIsLoading(false);
       }
@@ -56,15 +58,17 @@ export function GameProvider({ service, children }: GameProviderProps): JSX.Elem
   );
 
   const startAdventure = useCallback(
-    async (input: Parameters<GameContextValue["startAdventure"]>[0]): Promise<void> => {
+    async (input: Parameters<GameContextValue["startAdventure"]>[0]): Promise<boolean> => {
       setIsSubmitting(true);
       try {
         const adventure = await service.startAdventure(input);
         setActiveAdventure(adventure);
         await refreshAdventures();
         setError(null);
+        return true;
       } catch (startError) {
         setError(startError instanceof Error ? startError.message : "Unable to start adventure");
+        return false;
       } finally {
         setIsSubmitting(false);
       }

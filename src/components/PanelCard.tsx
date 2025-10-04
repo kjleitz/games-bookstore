@@ -15,10 +15,17 @@ interface PanelCardProps {
   controls: PanelControls;
 }
 
-export function PanelCard({ title, children, footer, className, controls }: PanelCardProps): JSX.Element {
-  const sectionClassName = className != null && className.length > 0
-    ? `panel-shell flex flex-col ${className}`
-    : "panel-shell flex flex-col";
+export function PanelCard({
+  title,
+  children,
+  footer,
+  className,
+  controls,
+}: PanelCardProps): JSX.Element {
+  const sectionClassName =
+    className != null && className.length > 0
+      ? `panel-shell flex flex-col ${className}`
+      : "panel-shell flex flex-col";
   const collapseLabel = controls.isCollapsed ? "Show panel" : "Collapse panel";
   const expandLabel = controls.isExpanded ? "Restore height" : "Expand panel";
   const bodyClassName = controls.isCollapsed
@@ -29,26 +36,26 @@ export function PanelCard({ title, children, footer, className, controls }: Pane
     <section className={sectionClassName}>
       <header className="panel-section-header">
         <span>[ {title} ]</span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-start">
           {footer}
-          <div className="flex items-center gap-1">
+          <div className="flex items-end">
             <button
               type="button"
               onClick={() => controls.onToggleCollapse()}
               title={collapseLabel}
               aria-label={collapseLabel}
-              className="terminal-button px-2 py-1 text-xs uppercase tracking-[0.2em]"
+              className="terminal-button uppercase"
             >
-              <span aria-hidden="true">{controls.isCollapsed ? "Show" : "Hide"}</span>
+              <span aria-hidden="true">{controls.isCollapsed ? "[+]" : "[-]"}</span>
             </button>
             <button
               type="button"
               onClick={() => controls.onToggleExpand()}
               title={expandLabel}
               aria-label={expandLabel}
-              className="terminal-button px-2 py-1 text-xs uppercase tracking-[0.2em]"
+              className="terminal-button uppercase"
             >
-              <span aria-hidden="true">{controls.isExpanded ? "Norm" : "Full"}</span>
+              <span aria-hidden="true">{controls.isExpanded ? "[.]" : "[:]"}</span>
             </button>
           </div>
         </div>

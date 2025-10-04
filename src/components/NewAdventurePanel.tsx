@@ -9,9 +9,13 @@ const promptRepository = new StaticPromptRepository();
 
 interface NewAdventurePanelProps {
   controls: PanelControls;
+  onAdventureStarted: () => void;
 }
 
-export function NewAdventurePanel({ controls }: NewAdventurePanelProps): JSX.Element {
+export function NewAdventurePanel({
+  controls,
+  onAdventureStarted,
+}: NewAdventurePanelProps): JSX.Element {
   const { startAdventure, isSubmitting } = useGameContext();
   const [prompts, setPrompts] = useState<StoryPromptOption[]>([]);
   const [selectedPromptId, setSelectedPromptId] = useState<string | null>(null);
@@ -36,11 +40,15 @@ export function NewAdventurePanel({ controls }: NewAdventurePanelProps): JSX.Ele
     }
 
     const title = customTitle.trim().length > 0 ? customTitle : prompt.title;
-    await startAdventure({
+    const didStart = await startAdventure({
       title,
       seedPrompt: prompt.seedPrompt,
       providerModel: "mock",
     });
+    if (!didStart) {
+      return;
+    }
+    onAdventureStarted();
     setCustomTitle("");
   };
 
@@ -67,7 +75,7 @@ export function NewAdventurePanel({ controls }: NewAdventurePanelProps): JSX.Ele
                   type="button"
                   key={prompt.id}
                   onClick={() => setSelectedPromptId(prompt.id)}
-                  className={`rounded-panel border text-left transition-colors ${
+                  className={`story-prompt-option rounded-panel text-left transition-colors ${
                     isSelected
                       ? "border-accent bg-accent/15 text-textPrimary"
                       : "border-border/40 bg-surface/70 text-textSecondary hover:border-accent hover:text-textPrimary"

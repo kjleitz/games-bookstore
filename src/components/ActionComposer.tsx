@@ -1,4 +1,4 @@
-import type { FormEvent, ReactElement } from "react";
+import type { FormEvent, KeyboardEvent, ReactElement } from "react";
 import { useState } from "react";
 
 import { useGameContext } from "../context/useGameContext";
@@ -11,14 +11,31 @@ export function ActionComposer(): ReactElement | null {
     return null;
   }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
-    event.preventDefault();
+  const submitAction = async (): Promise<void> => {
+    if (isSubmitting) {
+      return;
+    }
     const trimmed = actionText.trim();
     if (trimmed.length === 0) {
       return;
     }
     await submitPlayerAction(trimmed);
     setActionText("");
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+    await submitAction();
+  };
+
+  const handleComposerKeyDown = async (
+    event: KeyboardEvent<HTMLTextAreaElement>,
+  ): Promise<void> => {
+    if (event.key !== "Enter" || event.shiftKey) {
+      return;
+    }
+    event.preventDefault();
+    await submitAction();
   };
 
   return (
@@ -28,10 +45,11 @@ export function ActionComposer(): ReactElement | null {
     >
       <label className="flex-1">
         <span className="terminal-label">Player action</span>
-        <input
-          type="text"
+        <textarea
           value={actionText}
+          rows={3}
           onChange={(event) => setActionText(event.target.value)}
+          onKeyDown={(event) => void handleComposerKeyDown(event)}
           placeholder="Describe a concise action"
           className="terminal-input w-full"
         />

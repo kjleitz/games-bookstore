@@ -18,13 +18,10 @@ export function MapPanel({ controls }: MapPanelProps): JSX.Element {
       ) : (
         <div className="flex h-full min-h-0 flex-col overflow-y-auto">
           {locations.map((location) => (
-            <div
-              key={location.id}
-              className="rounded-panel border border-border/40 bg-surface/70"
-            >
-              <div className="flex items-center justify-between text-textPrimary">
+            <div key={location.id} className="rounded-panel border border-border/40 bg-surface/70">
+              <div className="flex items-start justify-between text-textPrimary">
                 <span>{location.name}</span>
-                <span className="uppercase tracking-[0.18em] text-textSecondary">
+                <span className="uppercase text-textSecondary">
                   ({location.x}, {location.y})
                 </span>
               </div>

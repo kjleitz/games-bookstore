@@ -11,8 +11,8 @@ export interface GameContextValue {
   isSubmitting: boolean;
   error: string | null;
   refreshAdventures: () => Promise<void>;
-  selectAdventure: (adventureId: string) => Promise<void>;
-  startAdventure: (input: StartAdventureInput) => Promise<void>;
+  selectAdventure: (adventureId: string) => Promise<boolean>;
+  startAdventure: (input: StartAdventureInput) => Promise<boolean>;
   submitPlayerAction: (playerAction: string) => Promise<void>;
   deleteAdventure: (adventureId: string) => Promise<void>;
 }

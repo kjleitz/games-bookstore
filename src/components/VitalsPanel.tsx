@@ -25,7 +25,7 @@ export function VitalsPanel({ controls }: VitalsPanelProps): JSX.Element {
       ) : (
         <div className="flex flex-col">
           <div>
-            <div className="flex items-center justify-between uppercase tracking-[0.18em] text-textSecondary">
+            <div className="flex items-start justify-between uppercase text-textSecondary">
               <span>Health</span>
               <span>
                 {vitalsState.currentHealth} / {vitalsState.maxHealth}
@@ -51,9 +51,7 @@ export function VitalsPanel({ controls }: VitalsPanelProps): JSX.Element {
                   >
                     <div className="flex items-center justify-between text-textPrimary">
                       <span>{condition.name}</span>
-                      <span className="uppercase tracking-[0.18em] text-warning">
-                        {condition.severity}
-                      </span>
+                      <span className="uppercase text-warning">{condition.severity}</span>
                     </div>
                     <p className="text-textSecondary">{condition.description}</p>
                   </li>

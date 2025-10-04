@@ -41,9 +41,9 @@ export function StoryPane(): JSX.Element {
       <div className="panel-scroll">
         <ul className="flex h-full min-h-0 flex-col overflow-y-auto text-textSecondary">
           {turns.map((turn) => (
-            <li key={turn.id} className="border-l-2 border-accent/80 px-[1ch] mt-[1em]">
+            <li key={turn.id} className="story-turn-item border-accent/80">
               <p className="text-accent mb-[1em]">
-                <span className="uppercase tracking-[0.18em] text-textSecondary mb-[1em]">
+                <span className="uppercase text-textSecondary mb-[1em]">
                   [{new Date(turn.createdAt).toLocaleTimeString()}]
                 </span>{" "}
                 &gt; {turn.playerAction}

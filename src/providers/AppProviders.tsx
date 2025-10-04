@@ -25,7 +25,12 @@ if (!isElectronEnvironment && adventureRepository instanceof InMemoryAdventureRe
 const storyEngine = new MockStoryEngine();
 const structuredStateProjector = new MockStructuredStateProjector();
 const clock = new SystemClock();
-const gameService = new GameService(adventureRepository, storyEngine, structuredStateProjector, clock);
+const gameService = new GameService(
+  adventureRepository,
+  storyEngine,
+  structuredStateProjector,
+  clock,
+);
 
 const settingsGateway = isElectronEnvironment
   ? new ElectronSettingsGateway()

@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ActionComposer } from "./components/ActionComposer";
 import { AdventureList } from "./components/AdventureList";
@@ -14,6 +14,7 @@ import { NewAdventurePanel } from "./components/NewAdventurePanel";
 import type { PanelControls } from "./components/PanelCard";
 import { StoryPane } from "./components/StoryPane";
 import { VitalsPanel } from "./components/VitalsPanel";
+import { useGameContext } from "./context/useGameContext";
 
 type PanelId = "vitals" | "appearance" | "inventory" | "journal" | "contacts" | "map";
 
@@ -74,18 +75,67 @@ interface ExpandedState {
 }
 
 export function App(): JSX.Element {
+  const { activeAdventure } = useGameContext();
   const [collapsedPanels, setCollapsedPanels] = useState<CollapsedState>({});
   const [collapsedCenterPanels, setCollapsedCenterPanels] = useState<
     Record<CenterPanelId, boolean>
-  >({
-    newAdventure: true,
-    adventureList: true,
-  });
+  >(() => ({
+    newAdventure: activeAdventure != null,
+    adventureList: activeAdventure != null,
+  }));
   const [expandedPanels, setExpandedPanels] = useState<ExpandedState>({
     left: null,
     right: null,
     center: null,
   });
+
+  useEffect(() => {
+    if (activeAdventure != null) {
+      return;
+    }
+    setCollapsedCenterPanels((previous) => {
+      const newPanelCollapsed = previous.newAdventure === true;
+      const listPanelCollapsed = previous.adventureList === true;
+      if (!newPanelCollapsed && !listPanelCollapsed) {
+        return previous;
+      }
+      return {
+        ...previous,
+        newAdventure: false,
+        adventureList: false,
+      };
+    });
+    setExpandedPanels((previous) => {
+      if (previous.center == null) {
+        return previous;
+      }
+      return { ...previous, center: null };
+    });
+  }, [activeAdventure]);
+
+  const collapseAfterStartingAdventure = useCallback((): void => {
+    setCollapsedCenterPanels((previous) => ({
+      ...previous,
+      newAdventure: true,
+      adventureList: true,
+    }));
+    setExpandedPanels((previous) => ({
+      ...previous,
+      center: null,
+    }));
+  }, []);
+
+  const collapseNewAdventureOnly = useCallback((): void => {
+    setCollapsedCenterPanels((previous) => ({
+      ...previous,
+      newAdventure: true,
+      adventureList: false,
+    }));
+    setExpandedPanels((previous) => ({
+      ...previous,
+      center: null,
+    }));
+  }, []);
 
   const createControls = (panelId: PanelId): PanelControls => {
     const columnId = panelColumnMap[panelId];
@@ -198,14 +248,24 @@ export function App(): JSX.Element {
       } else if (controls.isCollapsed) {
         wrapperClasses.push("flex-none");
       } else {
-        wrapperClasses.push("flex-none", "max-h-[45vh]", "overflow-hidden");
+        wrapperClasses.push("flex-none", "max-h-[45vh]", "min-h-[45vh]", "overflow-hidden");
       }
-      const PanelComponent = panelId === "newAdventure" ? NewAdventurePanel : AdventureList;
-      renderedPanels.push(
-        <div key={panelId} className={wrapperClasses.join(" ")}>
-          <PanelComponent controls={controls} />
-        </div>,
-      );
+      if (panelId === "newAdventure") {
+        renderedPanels.push(
+          <div key={panelId} className={wrapperClasses.join(" ")}>
+            <NewAdventurePanel
+              controls={controls}
+              onAdventureStarted={collapseAfterStartingAdventure}
+            />
+          </div>,
+        );
+      } else {
+        renderedPanels.push(
+          <div key={panelId} className={wrapperClasses.join(" ")}>
+            <AdventureList controls={controls} onAdventureSelected={collapseNewAdventureOnly} />
+          </div>,
+        );
+      }
     }
     return renderedPanels;
   };

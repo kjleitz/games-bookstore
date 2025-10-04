@@ -19,7 +19,7 @@ export function JournalPanel({ controls }: JournalPanelProps): JSX.Element {
         <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
           {journal.map((entry) => (
             <li key={entry.id} className="rounded-panel border border-border/40 bg-surface/70">
-              <div className="uppercase tracking-[0.18em] text-textSecondary">
+              <div className="uppercase text-textSecondary">
                 {new Date(entry.createdAt).toLocaleString()}
               </div>
               <h3 className="text-textPrimary">{entry.title}</h3>
