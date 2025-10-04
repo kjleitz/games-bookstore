@@ -248,7 +248,7 @@ export function App(): JSX.Element {
       } else if (controls.isCollapsed) {
         wrapperClasses.push("flex-none", "max-h-[45vh]", "overflow-hidden");
       } else {
-        wrapperClasses.push("flex-none", "max-h-[45vh]", "min-h-[45vh]", "overflow-hidden");
+        wrapperClasses.push("flex-1", "min-h-0", "max-h-[45vh]", "overflow-hidden");
       }
       if (panelId === "newAdventure") {
         renderedPanels.push(
