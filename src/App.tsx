@@ -246,7 +246,7 @@ export function App(): JSX.Element {
       if (controls.isExpanded) {
         wrapperClasses.push("flex-1", "min-h-0");
       } else if (controls.isCollapsed) {
-        wrapperClasses.push("flex-none");
+        wrapperClasses.push("flex-none", "max-h-[45vh]", "overflow-hidden");
       } else {
         wrapperClasses.push("flex-none", "max-h-[45vh]", "min-h-[45vh]", "overflow-hidden");
       }

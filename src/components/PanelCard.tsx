@@ -28,9 +28,10 @@ export function PanelCard({
       : "panel-shell flex flex-col";
   const collapseLabel = controls.isCollapsed ? "Show panel" : "Collapse panel";
   const expandLabel = controls.isExpanded ? "Restore height" : "Expand panel";
-  const bodyClassName = controls.isCollapsed
-    ? "hidden"
-    : "min-h-0 flex-1 overflow-y-auto text-textSecondary";
+  const panelBodyState = controls.isCollapsed ? "collapsed" : "expanded";
+  const panelBodyClassName = controls.isExpanded
+    ? "panel-body panel-body-expanded"
+    : "panel-body";
 
   return (
     <section className={sectionClassName}>
@@ -60,7 +61,9 @@ export function PanelCard({
           </div>
         </div>
       </header>
-      <div className={bodyClassName}>{children}</div>
+      <div className={panelBodyClassName} data-state={panelBodyState}>
+        <div className="panel-body-scroll text-textSecondary">{children}</div>
+      </div>
     </section>
   );
 }
