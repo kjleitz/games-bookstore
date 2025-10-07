@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
-import type { AdventureState } from "../domain/types/AdventureState";
-import type { AdventureSummary } from "../domain/types/AdventureSummary";
-import type { StartAdventureInput } from "../services/GameService";
+import type { AdventureState } from "../../domain/types/AdventureState";
+import type { AdventureSummary } from "../../domain/types/AdventureSummary";
+import type { StartAdventureInput } from "../../services/GameService";
 
 export interface GameContextValue {
   adventures: AdventureSummary[];

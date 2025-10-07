@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 
-import { useSettings } from "../context/useSettings";
+import { useSettings } from "../hooks/useSettings";
 
 export function AppFooter(): JSX.Element {
   const { settings, isLoading } = useSettings();

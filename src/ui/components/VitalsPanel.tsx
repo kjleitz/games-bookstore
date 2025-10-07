@@ -1,13 +1,9 @@
 import { type JSX, useMemo } from "react";
 
-import { useGameContext } from "../context/useGameContext";
-import { PanelCard, type PanelControls } from "./PanelCard";
+import { useGameContext } from "../hooks/useGameContext";
+import { PanelCard } from "./PanelCard";
 
-interface VitalsPanelProps {
-  controls: PanelControls;
-}
-
-export function VitalsPanel({ controls }: VitalsPanelProps): JSX.Element {
+export function VitalsPanel(): JSX.Element {
   const { activeAdventure } = useGameContext();
   const vitalsState = activeAdventure?.structured.vitals;
 
@@ -19,7 +15,7 @@ export function VitalsPanel({ controls }: VitalsPanelProps): JSX.Element {
   }, [vitalsState]);
 
   return (
-    <PanelCard title="Vitals" className="flex-1 min-h-0 overflow-hidden" controls={controls}>
+    <PanelCard panelId="vitals" title="Vitals">
       {vitalsState == null ? (
         <p className="text-textSecondary">Vitals unavailable.</p>
       ) : (
@@ -59,6 +55,55 @@ export function VitalsPanel({ controls }: VitalsPanelProps): JSX.Element {
               )}
             </ul>
           </div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
+          <div>thing</div>
         </div>
       )}
     </PanelCard>

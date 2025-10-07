@@ -1,20 +1,21 @@
 import { type JSX, useEffect, useState } from "react";
 
-import { useGameContext } from "../context/useGameContext";
-import type { StoryPromptOption } from "../domain/types/StoryPromptOption";
-import { StaticPromptRepository } from "../services/StaticPromptRepository";
-import { PanelCard, type PanelControls } from "./PanelCard";
+import { useGameContext } from "../hooks/useGameContext";
+import type { StoryPromptOption } from "../../domain/types/StoryPromptOption";
+import { StaticPromptRepository } from "../../services/StaticPromptRepository";
+import { PanelCard } from "./PanelCard";
+import { OptionButton } from "./OptionButton";
 
 const promptRepository = new StaticPromptRepository();
 
 interface NewAdventurePanelProps {
-  controls: PanelControls;
   onAdventureStarted: () => void;
+  className?: string;
 }
 
 export function NewAdventurePanel({
-  controls,
   onAdventureStarted,
+  className = "",
 }: NewAdventurePanelProps): JSX.Element {
   const { startAdventure, isSubmitting } = useGameContext();
   const [prompts, setPrompts] = useState<StoryPromptOption[]>([]);
@@ -53,37 +54,53 @@ export function NewAdventurePanel({
   };
 
   return (
-    <PanelCard title="New Adventure" controls={controls} className="h-full overflow-hidden">
+    <PanelCard
+      panelId="newAdventure"
+      title="New Adventure"
+      scrollable={false}
+      className={`new-adventure-panel ${className}`}
+    >
       <div className="flex flex-col text-textSecondary">
-        <label className="flex flex-col">
-          <span className="terminal-label">Title</span>
+        <label className="flex">
+          <label htmlFor="new-adventure-title" className="terminal-label terminal-label-inline">
+            Title
+          </label>
           <input
+            id="new-adventure-title"
             type="text"
             value={customTitle}
             onChange={(event) => setCustomTitle(event.target.value)}
             placeholder="Leave blank to use prompt title"
-            className="terminal-input"
+            className="terminal-input flex-1"
           />
         </label>
         <div className="flex flex-col">
-          <span className="terminal-label">Prompt</span>
-          <div className="flex flex-col">
+          <label htmlFor="new-adventure-prompts" className="terminal-label">
+            Prompt
+          </label>
+          <div id="new-adventure-prompts" className="new-adventure-prompts flex flex-col">
             {prompts.map((prompt) => {
               const isSelected = prompt.id === selectedPromptId;
               return (
-                <button
-                  type="button"
-                  key={prompt.id}
+                <OptionButton
                   onClick={() => setSelectedPromptId(prompt.id)}
-                  className={`story-prompt-option rounded-panel text-left transition-colors ${
-                    isSelected
-                      ? "border-accent bg-accent/15 text-textPrimary"
-                      : "border-border/40 bg-surface/70 text-textSecondary hover:border-accent hover:text-textPrimary"
-                  }`}
-                >
-                  <div className="text-textPrimary">{prompt.title}</div>
-                  <p className="text-textSecondary">{prompt.synopsis}</p>
-                </button>
+                  title={prompt.title}
+                  synopsis={prompt.synopsis}
+                  isSelected={isSelected}
+                />
+                // <button
+                //   type="button"
+                //   key={prompt.id}
+                //   onClick={() => setSelectedPromptId(prompt.id)}
+                //   className={`story-prompt-option rounded-panel text-left transition-colors ${
+                //     isSelected
+                //       ? "border-accent bg-accent/15 text-textPrimary"
+                //       : "border-border/40 bg-surface/70 text-textSecondary hover:border-accent hover:text-textPrimary"
+                //   }`}
+                // >
+                //   <div className="text-textPrimary">{prompt.title}</div>
+                //   <p className="text-textSecondary">{prompt.synopsis}</p>
+                // </button>
               );
             })}
           </div>
@@ -92,7 +109,7 @@ export function NewAdventurePanel({
           type="button"
           disabled={isSubmitting || selectedPromptId == null}
           onClick={() => void handleCreateAdventure()}
-          className="terminal-button terminal-button-primary disabled:opacity-50"
+          className="new-adventure-start-button terminal-button terminal-button-primary disabled:opacity-50"
         >
           {isSubmitting ? "Creating…" : "Start Adventure"}
         </button>

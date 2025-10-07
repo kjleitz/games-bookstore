@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { GameSettings } from "../settings/types/GameSettings";
+import type { GameSettings } from "../../settings/types/GameSettings";
 
 export interface SettingsContextValue {
   settings: GameSettings | null;

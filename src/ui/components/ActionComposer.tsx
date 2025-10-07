@@ -1,7 +1,7 @@
 import type { FormEvent, KeyboardEvent, ReactElement } from "react";
 import { useState } from "react";
 
-import { useGameContext } from "../context/useGameContext";
+import { useGameContext } from "../hooks/useGameContext";
 
 export function ActionComposer(): ReactElement | null {
   const { activeAdventure, submitPlayerAction, isSubmitting } = useGameContext();
@@ -41,7 +41,7 @@ export function ActionComposer(): ReactElement | null {
   return (
     <form
       onSubmit={(event) => void handleSubmit(event)}
-      className="panel-shell flex flex-col sm:flex-row sm:items-end"
+      className="action-composer panel-shell flex flex-col sm:flex-row sm:items-end"
     >
       <label className="flex-1">
         <span className="terminal-label">Player action</span>

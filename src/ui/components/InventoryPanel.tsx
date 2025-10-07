@@ -1,18 +1,14 @@
 import type { JSX } from "react";
 
-import { useGameContext } from "../context/useGameContext";
-import { PanelCard, type PanelControls } from "./PanelCard";
+import { useGameContext } from "../hooks/useGameContext";
+import { PanelCard } from "./PanelCard";
 
-interface InventoryPanelProps {
-  controls: PanelControls;
-}
-
-export function InventoryPanel({ controls }: InventoryPanelProps): JSX.Element {
+export function InventoryPanel(): JSX.Element {
   const { activeAdventure } = useGameContext();
   const items = activeAdventure?.structured.inventory ?? [];
 
   return (
-    <PanelCard title="Inventory" className="flex-1 min-h-0 overflow-hidden" controls={controls}>
+    <PanelCard panelId="inventory" title="Inventory">
       {items.length === 0 ? (
         <p className="text-textSecondary">No items collected yet.</p>
       ) : (

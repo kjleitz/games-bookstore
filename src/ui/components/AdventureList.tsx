@@ -1,14 +1,18 @@
 import { type JSX, useState } from "react";
 
-import { useGameContext } from "../context/useGameContext";
-import { PanelCard, type PanelControls } from "./PanelCard";
+import { useGameContext } from "../hooks/useGameContext";
+import { PanelCard } from "./PanelCard";
+import { OptionButton } from "./OptionButton";
 
 interface AdventureListProps {
-  controls: PanelControls;
   onAdventureSelected: () => void;
+  className?: string;
 }
 
-export function AdventureList({ controls, onAdventureSelected }: AdventureListProps): JSX.Element {
+export function AdventureList({
+  onAdventureSelected,
+  className = "",
+}: AdventureListProps): JSX.Element {
   const {
     adventures,
     activeAdventure,
@@ -21,8 +25,9 @@ export function AdventureList({ controls, onAdventureSelected }: AdventureListPr
 
   return (
     <PanelCard
-      title="Adventures"
-      className="flex-1 min-h-0 overflow-hidden"
+      panelId="adventureList"
+      title="Past Adventures"
+      className={`adventure-list-panel ${className}`}
       footer={
         <button
           type="button"
@@ -32,7 +37,6 @@ export function AdventureList({ controls, onAdventureSelected }: AdventureListPr
           Refresh
         </button>
       }
-      controls={controls}
     >
       <ul className="flex h-full min-h-0 flex-col overflow-y-auto">
         {isLoading && adventures.length === 0 ? (
@@ -45,7 +49,7 @@ export function AdventureList({ controls, onAdventureSelected }: AdventureListPr
           </li>
         ) : (
           adventures.map((adventure) => {
-            const isActive =
+            const isSelected =
               activeAdventure != null && adventure.id === activeAdventure.metadata.id;
 
             const onClickAdventureItem = async (): Promise<void> => {
@@ -57,29 +61,33 @@ export function AdventureList({ controls, onAdventureSelected }: AdventureListPr
             };
 
             return (
-              <li key={adventure.id} className="flex flex-col">
-                <button
-                  type="button"
+              <li key={adventure.id} className="flex items-start">
+                <OptionButton
+                  title={
+                    <div className="flex items-start justify-between uppercase">
+                      <span className="text-textPrimary">{adventure.title}</span>
+                      <span>{new Date(adventure.updatedAt).toLocaleDateString()}</span>
+                    </div>
+                  }
+                  synopsis={adventure.seedPrompt}
                   onClick={() => void onClickAdventureItem()}
-                  className={`w-full rounded-panel border text-left transition-colors ${
-                    isActive
-                      ? "border-accent bg-accent/20 text-textPrimary"
-                      : "border-border/40 bg-surface/70 text-textSecondary hover:border-accent hover:text-textPrimary"
-                  }`}
-                >
-                  <div className="flex items-start justify-between uppercase">
-                    <span className="text-textPrimary">{adventure.title}</span>
-                    <span>{new Date(adventure.updatedAt).toLocaleDateString()}</span>
-                  </div>
-                  <p className="text-textSecondary">{adventure.seedPrompt}</p>
-                </button>
-                <div className="flex uppercase text-textSecondary">
-                  {pendingDeleteId === adventure.id ? (
+                  isSelected={isSelected}
+                />
+                <div className="adventure-list-item-controls flex flex-col items-start uppercase text-textSecondary">
+                  {pendingDeleteId !== adventure.id ? (
+                    <button
+                      type="button"
+                      className="terminal-button mr-[1ch]"
+                      onClick={() => setPendingDeleteId(adventure.id)}
+                    >
+                      Delete
+                    </button>
+                  ) : (
                     <>
-                      <span>Delete?</span>
+                      <span className="pl-[1ch]">Delete?</span>
                       <button
                         type="button"
-                        className="text-danger"
+                        className="text-danger terminal-button"
                         onClick={() => {
                           void deleteAdventure(adventure.id);
                           setPendingDeleteId(null);
@@ -87,14 +95,14 @@ export function AdventureList({ controls, onAdventureSelected }: AdventureListPr
                       >
                         Confirm
                       </button>
-                      <button type="button" onClick={() => setPendingDeleteId(null)}>
+                      <button
+                        type="button"
+                        className="terminal-button"
+                        onClick={() => setPendingDeleteId(null)}
+                      >
                         Cancel
                       </button>
                     </>
-                  ) : (
-                    <button type="button" onClick={() => setPendingDeleteId(adventure.id)}>
-                      Delete
-                    </button>
                   )}
                 </div>
               </li>

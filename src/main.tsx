@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
-import { App } from "./App";
+import { App } from "./ui/App";
 import "./index.css";
-import { AppProviders } from "./providers/AppProviders";
+import { AppProviders } from "./ui/providers/AppProviders";
 
 const rootElement = document.getElementById("root");
 

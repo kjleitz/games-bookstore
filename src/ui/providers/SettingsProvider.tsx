@@ -1,8 +1,8 @@
 import type { JSX, ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { SettingsGateway } from "../services/types/SettingsGateway";
-import { SettingsContext, type SettingsContextValue } from "./SettingsContext";
+import type { SettingsGateway } from "../../services/types/SettingsGateway";
+import { SettingsContext, type SettingsContextValue } from "../context/SettingsContext";
 
 export interface SettingsProviderProps {
   gateway: SettingsGateway;

@@ -1,18 +1,14 @@
 import type { JSX } from "react";
 
-import { useGameContext } from "../context/useGameContext";
-import { PanelCard, type PanelControls } from "./PanelCard";
+import { useGameContext } from "../hooks/useGameContext";
+import { PanelCard } from "./PanelCard";
 
-interface JournalPanelProps {
-  controls: PanelControls;
-}
-
-export function JournalPanel({ controls }: JournalPanelProps): JSX.Element {
+export function JournalPanel(): JSX.Element {
   const { activeAdventure } = useGameContext();
   const journal = activeAdventure?.structured.journal ?? [];
 
   return (
-    <PanelCard title="Journal" className="flex-1 min-h-0 overflow-hidden" controls={controls}>
+    <PanelCard panelId="journal" title="Journal">
       {journal.length === 0 ? (
         <p className="text-textSecondary">No entries yet.</p>
       ) : (
